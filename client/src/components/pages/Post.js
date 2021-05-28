@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom'
 
 // import ImageUpload from "../ImageUpload";
 
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
-import {Cloudinary} from 'cloudinary-core';
+// import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+// import {Cloudinary} from 'cloudinary-core';
 import { makeStyles } from '@material-ui/core/styles';
 import FilledInput from '@material-ui/core/FilledInput';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

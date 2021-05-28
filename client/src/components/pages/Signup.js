@@ -70,6 +70,12 @@ export default function ComposedTextField() {
                 </FormControl>
             </Grid>
         </Grid>
+         {/* <form onSubmit = {props.handleSignupFormSubmit}> 
+        <input name="email" value = {props.signupFormState.email} onChange={(e)=>props.setSignupFormState({...props.signupFormState,email:e.target.value})}/>
+        <input name="name" value = {props.signupFormState.name} onChange={(e)=>props.setSignupFormState({...props.signupFormState,name:e.target.value})}/>
+        <input name="password"  type="password" value = {props.signupFormState.password} onChange={(e)=>props.setSignupFormState({...props.signupFormState,password:e.target.value})}/>
+        <input type="submit" value="signup"/>
+      </form> */}
     </div>
     );
 }
