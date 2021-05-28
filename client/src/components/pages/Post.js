@@ -11,9 +11,11 @@ import FilledInput from '@material-ui/core/FilledInput';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -28,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
 export default function ComposedTextField() {
   const [name, setName] = React.useState('Composed TextField');
   const [value, setValue] = React.useState('default');
@@ -40,7 +38,6 @@ export default function ComposedTextField() {
   const handleChange = (event) => {
     setName(event.target.value);
   };
-
 
   return (
     <div className={classes.root}>
@@ -58,11 +55,34 @@ export default function ComposedTextField() {
             </FormControl>
         </Grid>
         <Grid item xs={12}>
+            <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">Pick all that apply</FormLabel>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={<Checkbox onChange={handleChange} name="pets" />}
+                            label="Pet Friendly"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox onChange={handleChange} name="easycare" />}
+                            label="Low Maintenance"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox onChange={handleChange} name="exotic" />}
+                            label="Exotic"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox onChange={handleChange} name="restricted" />}
+                            label="Shipping Restrictions May Apply"
+                        />
+                    </FormGroup>
+            </FormControl>
+        </Grid>
+        <Grid item xs={12}>
         <FormControl component="fieldset">
             <FormLabel component="legend">Flowers</FormLabel>
                 <RadioGroup aria-label="flowers" name="flowers1" value={value} onChange={handleChange}>
                     <FormControlLabel control={<Radio />} label="Yes" />
-                    <FormControlLabel control={<Radio />} label="No" />
+                    <FormControlLabel value="default" control={<Radio />} label="No" />
                 </RadioGroup>
             </FormControl>
         </Grid>
