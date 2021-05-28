@@ -19,14 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComposedTextField() {
-  const [name, setName] = React.useState('Composed TextField');
+export default function ComposedTextField(props) {
   const classes = useStyles();
-
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
-
 
   return (
     <div className={classes.root}>
@@ -34,19 +28,15 @@ export default function ComposedTextField() {
         <Grid item xs={12}>
         <img src={"http://placekitten.com/800/200"} />
         </Grid>
-        <Grid item xs={12}>
-            <FormControl variant="outlined">
-                <InputLabel htmlFor="component-outlined">Name</InputLabel>
-                <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Name" />
-            </FormControl>
         </Grid>
-        <Grid item xs={12}>
-            <FormControl variant="outlined">
-                <InputLabel htmlFor="component-outlined">Email</InputLabel>
-                <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Email" />
-            </FormControl>
-        </Grid>
-        </Grid>
+        <h2>Log-in</h2>
+         <form onSubmit = {props.handleFormSubmit}> 
+         <InputLabel htmlFor="component-outlined">Email</InputLabel>
+        <OutlinedInput name="email" value = {props.formState.email} onChange={(e)=>props.setFormState({...props.formState,email:e.target.value})}/>
+        <InputLabel htmlFor="component-outlined">Password</InputLabel>
+        <OutlinedInput name="password"  type="password" value = {props.formState.password} onChange={(e)=>props.setFormState({...props.formState,password:e.target.value})}/>
+        <OutlinedInput type="submit" value="login"/>
+      </form>
     </div>
     );
 }
