@@ -9,7 +9,7 @@ const API = {
     signup: function (userData) {
         return axios.post(`${URL_PREFIX}/api/signup`, userData)
     },
-    getProfile: function (token) {
+    getUser: function (token) {
         return axios.get(`${URL_PREFIX}/profile`, {
             headers: {
                 authorization: `Bearer ${token}`
