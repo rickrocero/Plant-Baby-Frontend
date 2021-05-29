@@ -1,14 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-// // import './index.css'
-
+import NavBar from "../NavBar";
 import { makeStyles } from '@material-ui/core/styles';
-import FilledInput from '@material-ui/core/FilledInput';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +22,10 @@ export default function ComposedTextField() {
 
   return (
     <div className={classes.root}>
+       <NavBar />
         <Grid container spacing={3}>
             <Grid item xs={12}>
-            <img src={"http://placekitten.com/800/200"} />
+            <img src={"http://placekitten.com/800/200"} alt="" />
             </Grid>
             <Grid item xs={6}>
                 <p>First Name: </p>

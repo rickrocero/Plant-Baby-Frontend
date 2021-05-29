@@ -1,7 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-// // import './index.css'
-
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import {Cloudinary} from 'cloudinary-core';
 

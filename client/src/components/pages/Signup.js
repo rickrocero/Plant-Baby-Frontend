@@ -1,81 +1,154 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-// // import './index.css'
-
-import { makeStyles } from '@material-ui/core/styles';
-import FilledInput from '@material-ui/core/FilledInput';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Grid from '@material-ui/core/Grid';
+import React, { useEffect, useState } from "react";
+import API from "../../utils/Api";
+import NavBar from "../NavBar";
+import SignupForm from "../SignupForm/index";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
 }));
 
-export default function ComposedTextField() {
-  const [name, setName] = React.useState('Composed TextField');
+export default function ComposedTextField(props) {
   const classes = useStyles();
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+  });
+  const [signupFormState, setSignupFormState] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
 
-  const handleChange = (event) => {
-    setName(event.target.value);
+  const [userState, setUserState] = useState({
+    token: "",
+    user: {},
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      API.getUser(token)
+        .then((res) => {
+          console.log(res.data);
+          setUserState({
+            token: token,
+            user: {
+              email: res.data.email,
+              id: res.data.id,
+              name: res.data.name,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log("no logged in user");
+          setUserState({
+            token: "",
+            user: {},
+          });
+        });
+    } else {
+      console.log("no token provided");
+    }
+  }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    API.login(formState)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("token", res.data.token);
+        setUserState({
+          ...userState,
+          token: res.data.token,
+          user: {
+            email: res.data.email,
+            name: res.data.name,
+            id: res.data.id,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("error occured");
+        console.log(err);
+        localStorage.removeItem("token");
+        setUserState({
+          token: "",
+          user: {},
+        });
+      });
+    setFormState({
+      email: "",
+      password: "",
+    });
   };
 
+  const handleSignupFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(signupFormState);
+    API.signup(signupFormState)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("token", res.data.token);
+        setUserState({
+          ...userState,
+          token: res.data.token,
+          user: {
+            email: res.data.email,
+            name: res.data.name,
+            id: res.data.id,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("error occured");
+        console.log(err);
+        localStorage.removeItem("token");
+        setUserState({
+          token: "",
+          user: {},
+        });
+      });
+    setSignupFormState({
+      name: "",
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleLogout = () => {
+    setUserState({
+      token: "",
+      user: {},
+    });
+    localStorage.removeItem("token");
+  };
 
   return (
     <div className={classes.root}>
-        <Grid container spacing={3}>
-            <Grid item xs={12}>
-            <img src={"http://placekitten.com/800/200"} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="component-outlined">First Name</InputLabel>
-                    <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="First Name" />
-                </FormControl>
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="component-outlined">Last Name</InputLabel>
-                    <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Last Name" />
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="component-outlined">Username</InputLabel>
-                    <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Username" />
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="component-outlined">Email</InputLabel>
-                    <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Email" />
-                    <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="component-outlined">Password</InputLabel>
-                    <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Password" />
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="component-outlined">Confirm Password</InputLabel>
-                    <OutlinedInput id="component-outlined" value={name} onChange={handleChange} label="Confirm Password" />
-                </FormControl>
-            </Grid>
+      <NavBar />
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <img src={"http://placekitten.com/800/200"} alt=""/>
         </Grid>
-         {/* <form onSubmit = {props.handleSignupFormSubmit}> 
-        <input name="email" value = {props.signupFormState.email} onChange={(e)=>props.setSignupFormState({...props.signupFormState,email:e.target.value})}/>
-        <input name="name" value = {props.signupFormState.name} onChange={(e)=>props.setSignupFormState({...props.signupFormState,name:e.target.value})}/>
-        <input name="password"  type="password" value = {props.signupFormState.password} onChange={(e)=>props.setSignupFormState({...props.signupFormState,password:e.target.value})}/>
-        <input type="submit" value="signup"/>
-      </form> */}
+      </Grid>
+      <h2>Sign-up</h2>
+      <SignupForm
+        user={userState.user}
+        handleFormSubmit={handleFormSubmit}
+        formState={formState}
+        setFormState={setFormState}
+        signupFormState={signupFormState}
+        setSignupFormState={setSignupFormState}
+        handleSignupFormSubmit={handleSignupFormSubmit}
+        handleLogout={handleLogout}
+      />
     </div>
-    );
+  );
 }

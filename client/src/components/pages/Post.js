@@ -1,23 +1,19 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-// // import './index.css'
-
+import NavBar from "../NavBar";
 // import ImageUpload from "../ImageUpload";
-
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 // import {Cloudinary} from 'cloudinary-core';
 import { makeStyles } from '@material-ui/core/styles';
-import FilledInput from '@material-ui/core/FilledInput';
+// import FilledInput from '@material-ui/core/FilledInput';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
-
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Grid from '@material-ui/core/Grid';
@@ -44,9 +40,10 @@ export default function ComposedTextField() {
         {/* <Grid container spacing={3}>
             <ImageUpload></ImageUpload>
         </Grid> */}
+         <NavBar />
         <Grid container spacing={3}>
         <Grid item xs={12}>
-        <img src={"http://placekitten.com/800/200"} />
+        <img src={"http://placekitten.com/800/200"} alt="" />
         </Grid>
         <Grid item xs={12}>
             <FormControl variant="outlined">
