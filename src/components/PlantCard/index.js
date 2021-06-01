@@ -27,7 +27,7 @@ export default function MediaCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_peperomia-obtusfolia-green_variant_small_grant_black_72353c54-6669-40d7-be32-8a9dd009e984_1200x.jpg?v=1622115419"
           title="Contemplative Reptile"
         />
         <CardContent>

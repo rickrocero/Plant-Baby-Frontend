@@ -135,7 +135,7 @@ export default function ComposedTextField(props) {
       <NavBar />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <img src={"http://placekitten.com/800/200"} alt=""/>
+          <img src="./images/plant-baby-logo.png" alt=""/>
         </Grid>
       </Grid>
       <h2>Sign-up</h2>

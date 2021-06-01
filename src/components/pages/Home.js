@@ -19,28 +19,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
-    const classes = useStyles();
-  
-    return (
-      
-      <div className={classes.root}>
-         <NavBar />
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <img src={"http://placekitten.com/800/600"} alt="" />
-          </Grid>
-          
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
+  const classes = useStyles();
+
+  return (
+
+    <div className={classes.root}>
+      <NavBar />
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <img src={"https://cdn.onekindesign.com/wp-content/uploads/2019/08/Inspiring-Vegetable-Garden-Ideas-01-1-Kindesign.jpg"} alt="" />
         </Grid>
-        <ImageUpload />
-      </div>
-    );
-  }
+
+        <Grid item xs={12} sm={4}>
+          <PlantCard></PlantCard>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <PlantCard></PlantCard>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <PlantCard></PlantCard>
+        </Grid>
+      </Grid>
+      <ImageUpload />
+    </div>
+  );
+}
