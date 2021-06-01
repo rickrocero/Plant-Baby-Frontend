@@ -16,7 +16,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
-
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Grid from '@material-ui/core/Grid';
@@ -79,9 +78,10 @@ export default function ComposedTextField() {
         {/* <Grid container spacing={3}>
             <ImageUpload></ImageUpload>
         </Grid> */}
+         <NavBar />
         <Grid container spacing={3}>
         <Grid item xs={12}>
-        <img src={"http://placekitten.com/800/200"} />
+        <img src={"http://placekitten.com/800/200"} alt="" />
         </Grid>
         <Grid item xs={12}>
             <FormControl variant="outlined">

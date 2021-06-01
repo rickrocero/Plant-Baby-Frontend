@@ -1,6 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-// // import './index.css'
+import NavBar from "../NavBar";
+import ImageUpload from '../ImageUpload/ImageUpload'
 
 import PlantCard from "../PlantCard";
 
@@ -22,11 +22,14 @@ export default function Home() {
     const classes = useStyles();
   
     return (
+      
       <div className={classes.root}>
+         <NavBar />
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <img src={"http://placekitten.com/800/600"} />
+            <img src={"http://placekitten.com/800/600"} alt="" />
           </Grid>
+          
           <Grid item xs={12} sm={4}>
             <PlantCard></PlantCard>
           </Grid>
@@ -37,6 +40,7 @@ export default function Home() {
             <PlantCard></PlantCard>
           </Grid>
         </Grid>
+        <ImageUpload />
       </div>
     );
   }
