@@ -19,6 +19,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Grid from '@material-ui/core/Grid';
+import NavBar from '../NavBar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
