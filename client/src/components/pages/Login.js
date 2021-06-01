@@ -60,7 +60,7 @@ export default function Login() {
   const handleFormSubmit = e =>{
     e.preventDefault();
     API.login(formState).then(res=>{
-      // console.log(res.data.user);
+      console.log(res.data.user);
       // console.log(res.data.user.id);
       // console.log(res.data.user.first_name);
       // console.log(res.data.user.last_name);

@@ -79,15 +79,17 @@ export default class ImageUpload extends React.Component {
   }
 
   render() {
-    console.log(this.state.files);
+    // console.log(this.state.files);
     for (let i = 0; i < this.state.files.length; i++) {
-      const image = this.state.files[i];
-      console.log(image);
-      API.imageLoad(image).then(res=> {
-    console.log('Success', res.data)
-}).catch(error => {
-    console.log('Error', error)
-})
+      const file = this.state.files[i].base64;
+    //   console.log(file);
+      API.imageLoad(file)
+        .then((res) => {
+          console.log("Success");
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
     }
 
     return (
@@ -101,7 +103,7 @@ export default class ImageUpload extends React.Component {
 
         <div className="text-center">
           {this.state.files.map((file, i) => {
-            return <img key={i} src={file.base64} />;
+            return <img key={i} src={file.base64} width="25%" height="25%" />;
           })}
           <img src="" />
         </div>
