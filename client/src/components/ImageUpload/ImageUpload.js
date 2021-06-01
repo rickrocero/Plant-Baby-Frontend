@@ -1,53 +1,122 @@
-import React from 'react'
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
-import {Cloudinary} from 'cloudinary-core';
+// import React from 'react'
+// import './style.css'
+import API from "../../utils/Api";
 
-function showUploadWidget() {
-    cloudinary.openUploadWidget({
-       cloudName: "<cloud name>",
-       uploadPreset: "<upload preset>",
-       sources: [
-           "camera",
-           "facebook",
-           "dropbox",
-           "instagram",
-           "local"
-       ],
-       googleApiKey: "<image_search_google_api_key>",
-       showAdvancedOptions: true,
-       cropping: true,
-       multiple: false,
-       defaultSource: "local",
-       styles: {
-           palette: {
-               window: "#464040",
-               sourceBg: "#292222",
-               windowBorder: "#c7a49f",
-               tabIcon: "#cc6600",
-               inactiveTabIcon: "#E8D5BB",
-               menuIcons: "#ebe5db",
-               link: "#ffb107",
-               action: "#ffcc00",
-               inProgress: "#99cccc",
-               complete: "#78b3b4",
-               error: "#ff6666",
-               textDark: "#4C2F1A",
-               textLight: "#D8CFCF"
-           },
-           fonts: {
-               default: null,
-               "'Poppins', sans-serif": {
-                   url: "https://fonts.googleapis.com/css?family=Poppins",
-                   active: true
-               }
-           }
-       }
-   },
-    (err, info) => {
-      if (!err) {    
-        console.log("Upload Widget event - ", info);
-      }
-     });
+// function ImageUpload() {
+
+//     const handleImageUpload = e => {
+//         e.preventDefault();
+//         const image = [...document.querySelector('input[type=file]').files];
+//         console.log(image)
+
+//         API.imageLoad(files).then(res=> {
+//             console.log('Success', res.data)
+//         }).catch(error => {
+//             console.log('Error', error)
+//         })
+// }
+
+// const handleImageUpload = e => {
+//     e.preventDefault();
+//     // let base64String = '';
+//     var file = document.querySelector(
+//         'input[type=file]')['files'][0];
+//         let reader = new FileReader();
+//         reader.readAsDataURL(file);
+//         reader.onloadend = () => {
+//           this.setState({
+//             file: file,
+//             base64: reader.result
+//           });
+//         };
+
+// var reader = new FileReader();
+// console.log("next");
+
+// reader.onload = function () {
+//     base64String = reader.result.replace("data:", "")
+//         .replace(/^.+,/, "");
+
+// imageBase64Stringsep = base64String;
+
+// alert(imageBase64Stringsep);
+//     console.log(base64String);
+// }
+// reader.readAsDataURL(file);
+// }
+
+// API.imageLoad(files).then(res=> {
+//     console.log('Success', res.data)
+// }).catch(error => {
+//     console.log('Error', error)
+// })
+
+//     return(
+//  <form className="form" onSubmit={handleImageUpload}>
+//      <div>
+//          <label>Submit a picture of your plant to identify and get details about it:</label>
+//              <input  type="file"></input>
+//              <button  type="submit" value="imageUpload">Submit</button>
+//      </div>
+//  </form>
+
+//     )
+// }
+// export default ImageUpload;
+
+import React from "react";
+import FileBase64 from "react-file-base64";
+export default class ImageUpload extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      files: [],
+    };
+  }
+
+  getFiles(files) {
+    this.setState({ files: files });
+  }
+
+  render() {
+    console.log(this.state.files);
+    for (let i = 0; i < this.state.files.length; i++) {
+      const image = this.state.files[i];
+      console.log(image);
+      API.imageLoad(image).then(res=> {
+    console.log('Success', res.data)
+}).catch(error => {
+    console.log('Error', error)
+})
     }
 
-    export default ImageUpload;
+    return (
+      <div>
+        <h1 className="text-center">React File to Base64 Converter</h1>
+
+        <div className="text-center mt-25">
+          <p className="text-center"> *) Try To Upload Some Image~</p>
+          <FileBase64 multiple={true} onDone={this.getFiles.bind(this)} />
+        </div>
+
+        <div className="text-center">
+          {this.state.files.map((file, i) => {
+            return <img key={i} src={file.base64} />;
+          })}
+          <img src="" />
+        </div>
+
+        {this.state.files.length != 0 ? (
+          <div>
+            <h3 className="text-center mt-25">Callback Object</h3>
+            <div className="pre-container">
+              <pre>{JSON.stringify(this.state.files[0].base64, null, 2)}</pre>
+            </div>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+}
+
+// export default ImageUpload

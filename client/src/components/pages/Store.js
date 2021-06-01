@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import PlantCard from "../PlantCard";
+import CheckoutForm from '../CheckoutForm/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,8 +24,8 @@ export default function ComposedTextField() {
 
 
   return (
-    
-    <Grid container spacing={3}>
+    <div>
+       <Grid container spacing={3}>
        <NavBar />
       <Grid item xs={12}>
         <img src={"http://placekitten.com/800/200"} alt="" />
@@ -67,6 +68,8 @@ export default function ComposedTextField() {
       <Grid item xs={12} sm={4}>
         <PlantCard></PlantCard>
       </Grid>
-    </Grid>    
+    </Grid>   
+    <CheckoutForm /> 
+    </div>
   );
 }
