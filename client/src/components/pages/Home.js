@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from "../NavBar";
+import ImageUpload from '../ImageUpload/ImageUpload'
 
 import PlantCard from "../PlantCard";
 
@@ -28,6 +29,7 @@ export default function Home() {
           <Grid item xs={12}>
             <img src={"http://placekitten.com/800/600"} alt="" />
           </Grid>
+          
           <Grid item xs={12} sm={4}>
             <PlantCard></PlantCard>
           </Grid>
@@ -38,6 +40,7 @@ export default function Home() {
             <PlantCard></PlantCard>
           </Grid>
         </Grid>
+        <ImageUpload />
       </div>
     );
   }

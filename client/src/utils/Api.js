@@ -10,12 +10,18 @@ const API = {
         return axios.post(`${URL_PREFIX}/api/signup`, userData)
     },
     getUser: function (token) {
-        return axios.get(`${URL_PREFIX}/profile`, {
+        return axios.get(`${URL_PREFIX}/api/profile`, {
             headers: {
                 authorization: `Bearer ${token}`
             }
         })
     },
+    imageLoad: function(image) {
+        return axios.post(`${URL_PREFIX}/api/search`, image)
+    },
+    logOut: function() {
+        return axios.get(`${URL_PREFIX}/api/logout`)
+    }
 }
 
 export default API

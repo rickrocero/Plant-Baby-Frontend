@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import "./style.css";
@@ -24,6 +24,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
+import API from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -109,6 +110,7 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(null);
   };
 
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -128,6 +130,13 @@ export default function PrimarySearchAppBar() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const handleLogout = ()=>{
+   API.logOut().then(res=> {
+     console.log(res)
+     alert('Logged Out')
+   })
+  }
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -152,7 +161,7 @@ export default function PrimarySearchAppBar() {
           Profile
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
