@@ -28,7 +28,7 @@ export default function ComposedTextField() {
       <Grid container spacing={3}>
         <NavBar />
         <Grid item xs={12}>
-          <img src={"http://placekitten.com/800/200"} alt="" />
+          <img src={"https://static.wixstatic.com/media/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg/v1/fill/w_1000,h_667,al_c,q_90,usm_0.66_1.00_0.01/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg"} alt="" />
         </Grid>
         <Grid item xs={12} sm={3}>
           <Button variant="outlined" size="large" color="primary" className={classes.margin}>
