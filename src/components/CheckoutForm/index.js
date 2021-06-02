@@ -128,4 +128,6 @@ var purchase = {
     )
 }
 
-export default CheckoutForm
+export default CheckoutForm;
+
+

@@ -11,7 +11,18 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
+    backgroundColor: "#fdfcfa"
   },
+
+  storeimg: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  margin: {
+    backgroundColor:"#006a4e",
+    color: "#e1c0ad"
+  }
 }));
 
 export default function ComposedTextField() {
@@ -28,25 +39,25 @@ export default function ComposedTextField() {
       <Grid container spacing={3}>
         <NavBar />
         <Grid item xs={12}>
-          <img src={"https://static.wixstatic.com/media/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg/v1/fill/w_1000,h_667,al_c,q_90,usm_0.66_1.00_0.01/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg"} alt="" />
+          <img src={"https://static.wixstatic.com/media/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg/v1/fill/w_1000,h_667,al_c,q_90,usm_0.66_1.00_0.01/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg"} className={classes.storeimg} alt="plants on a shelf"/>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
             Pet Friendly
       </Button>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
             Low Maintenance
       </Button>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
             Exotic
       </Button>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
             Restricted
       </Button>
         </Grid>

@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    backgroundColor: "#fdfcfa"
   },
   paper: {
     padding: theme.spacing(2),
@@ -27,7 +28,7 @@ export default function Home() {
       <NavBar />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <img src={"https://cdn.onekindesign.com/wp-content/uploads/2019/08/Inspiring-Vegetable-Garden-Ideas-01-1-Kindesign.jpg"} alt="" />
+          <img src={"https://cdn.onekindesign.com/wp-content/uploads/2019/08/Inspiring-Vegetable-Garden-Ideas-01-1-Kindesign.jpg"} alt="backyard" />
         </Grid>
 
         <Grid item xs={12} sm={4}>

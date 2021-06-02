@@ -22,153 +22,159 @@ import Grid from '@material-ui/core/Grid';
 import NavBar from '../NavBar'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+        backgroundColor: "#fdfcfa"
     },
-  },
 }));
 
 export default function ComposedTextField() {
-  const [name, setName] = React.useState({
-      plant: "",
-      instruct: ""
+    const [name, setName] = React.useState({
+        plant: "",
+        instruct: ""
     });
-  
+
     const { plant, instruct } = name;
 
     const handleChange = (event) => {
         setName({ ...name, [event.target.name]: event.target.value });
-      };
+    };
 
-  
+
     const [value, setValue] = React.useState({
-      flowers: "",
-      water: "",
-      sunlight: "",
-      fertilizer: "",
-      temperature: ""
-  });
+        flowers: "",
+        water: "",
+        sunlight: "",
+        fertilizer: "",
+        temperature: ""
+    });
 
-  const { flowers, water, sunlight, fertilizer, temperature } = value;
+    const { flowers, water, sunlight, fertilizer, temperature } = value;
 
-  const handleValueChange = (event) => {
-    setValue({ ...value, [event.target.name]: event.target.value });
-  };
-
-
-  const [checkState, setCheckState] = React.useState({
-    pets: false,
-    easycare: false,
-    exotic: false,
-    restricted: false,
-  });
-
-  const { pets, easycare, exotic, restricted } = checkState;
-
-  const handleCheckChange = (event) => {
-    setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-};
+    const handleValueChange = (event) => {
+        setValue({ ...value, [event.target.name]: event.target.value });
+    };
 
 
-  const classes = useStyles();
+    const [checkState, setCheckState] = React.useState({
+        pets: false,
+        easycare: false,
+        exotic: false,
+        restricted: false,
+    });
+
+    const { pets, easycare, exotic, restricted } = checkState;
+
+    const handleCheckChange = (event) => {
+        setCheckState({ ...checkState, [event.target.name]: event.target.checked });
+    };
 
 
-  return (
-    <div className={classes.root}>
-        {/* <Grid container spacing={3}>
+    const classes = useStyles();
+
+
+    return (
+        <div className={classes.root}>
+            {/* <Grid container spacing={3}>
             <ImageUpload></ImageUpload>
         </Grid> */}
-         <NavBar />
-        <Grid container spacing={3}>
-        <Grid item xs={12}>
-        <img src="./images/plant-baby-logo.png" alt="" />
-        </Grid>
-        <Grid item xs={12}>
-            <FormControl variant="outlined">
-                <InputLabel htmlFor="component-outlined">Plant Name</InputLabel>
-                <OutlinedInput id="component-outlined" value={plant} onChange={handleChange} label="Name" name="plant" />
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-            <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend">Pick all that apply</FormLabel>
-                    <FormGroup>
-                        <FormControlLabel
-                            control={<Checkbox checked={pets} onChange={handleCheckChange} name="pets" />}
-                            label="Pet Friendly"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={easycare} onChange={handleCheckChange} name="easycare" />}
-                            label="Low Maintenance"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={exotic} onChange={handleCheckChange} name="exotic" />}
-                            label="Exotic"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={restricted} onChange={handleCheckChange} name="restricted" />}
-                            label="Shipping Restrictions May Apply"
-                        />
-                    </FormGroup>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-        <FormControl component="fieldset">
-            <FormLabel component="legend">Flowers</FormLabel>
-                <RadioGroup aria-label="flowers" name="flowers" value={flowers} onChange={handleValueChange}>
-                    <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                    <FormControlLabel value="no" control={<Radio />} label="No" />
-                </RadioGroup>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-        <FormControl component="fieldset">
-            <FormLabel component="legend">Water</FormLabel>
-                <RadioGroup aria-label="water" name="water" value={water} onChange={handleValueChange}>
-                    <FormControlLabel value="daily" control={<Radio />} label="Daily" />
-                    <FormControlLabel value="weekly" control={<Radio />} label="1-2 times a week" />
-                    <FormControlLabel value="monthly" control={<Radio />} label="Once a month" />
-                    <FormControlLabel value="none" control={<Radio />} label="Air plant" />
-                </RadioGroup>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-        <FormControl component="fieldset">
-            <FormLabel component="legend">Sunlight</FormLabel>
-                <RadioGroup aria-label="sunlight" name="sunlight" value={sunlight} onChange={handleValueChange}>
-                    <FormControlLabel value="direct" control={<Radio />} label="Direct Sunlight" />
-                    <FormControlLabel value="indirect" control={<Radio />} label="Indirect Sunlight" />
-                </RadioGroup>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-        <FormControl component="fieldset">
-            <FormLabel component="legend">Ferilizer</FormLabel>
-                <RadioGroup aria-label="ferilizer" name="fertilizer" value={fertilizer} onChange={handleValueChange}>
-                    <FormControlLabel value="regularly" control={<Radio />} label="Regularly" />
-                    <FormControlLabel value="periodically" control={<Radio />} label="Periodically" />
-                    <FormControlLabel value="rarely" control={<Radio />} label="Rarely" />
-                </RadioGroup>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-        <FormControl component="fieldset">
-            <FormLabel component="legend">Temperature</FormLabel>
-                <RadioGroup aria-label="temperature" name="temperature" value={temperature} onChange={handleValueChange}>
-                    <FormControlLabel value="hot" control={<Radio />} label="Hot" />
-                    <FormControlLabel value="temperate" control={<Radio />} label="Temperate" />
-                    <FormControlLabel value="cool" control={<Radio />} label="Cool" />
-                </RadioGroup>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-            <FormControl variant="outlined">
-                <InputLabel htmlFor="component-outlined">Added Instructions</InputLabel>
-                <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
-            </FormControl>
-        </Grid>
-        </Grid>
-    </div>
+            <NavBar />
+            <Grid container 
+            spacing={3}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: '100vh' }}>
+                <Grid item xs={12}>
+                    <img src="./images/plant-baby-logo.png" alt="" />
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="component-outlined">Plant Name</InputLabel>
+                        <OutlinedInput id="component-outlined" value={plant} onChange={handleChange} label="Name" name="plant" />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset" className={classes.formControl}>
+                        <FormLabel component="legend">Pick all that apply</FormLabel>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={<Checkbox checked={pets} onChange={handleCheckChange} name="pets" />}
+                                label="Pet Friendly"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={easycare} onChange={handleCheckChange} name="easycare" />}
+                                label="Low Maintenance"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={exotic} onChange={handleCheckChange} name="exotic" />}
+                                label="Exotic"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={restricted} onChange={handleCheckChange} name="restricted" />}
+                                label="Shipping Restrictions May Apply"
+                            />
+                        </FormGroup>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend">Flowers</FormLabel>
+                        <RadioGroup aria-label="flowers" name="flowers" value={flowers} onChange={handleValueChange}>
+                            <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                            <FormControlLabel value="no" control={<Radio />} label="No" />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend">Water</FormLabel>
+                        <RadioGroup aria-label="water" name="water" value={water} onChange={handleValueChange}>
+                            <FormControlLabel value="daily" control={<Radio />} label="Daily" />
+                            <FormControlLabel value="weekly" control={<Radio />} label="1-2 times a week" />
+                            <FormControlLabel value="monthly" control={<Radio />} label="Once a month" />
+                            <FormControlLabel value="none" control={<Radio />} label="Air plant" />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend">Sunlight</FormLabel>
+                        <RadioGroup aria-label="sunlight" name="sunlight" value={sunlight} onChange={handleValueChange}>
+                            <FormControlLabel value="direct" control={<Radio />} label="Direct Sunlight" />
+                            <FormControlLabel value="indirect" control={<Radio />} label="Indirect Sunlight" />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend">Ferilizer</FormLabel>
+                        <RadioGroup aria-label="ferilizer" name="fertilizer" value={fertilizer} onChange={handleValueChange}>
+                            <FormControlLabel value="regularly" control={<Radio />} label="Regularly" />
+                            <FormControlLabel value="periodically" control={<Radio />} label="Periodically" />
+                            <FormControlLabel value="rarely" control={<Radio />} label="Rarely" />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend">Temperature</FormLabel>
+                        <RadioGroup aria-label="temperature" name="temperature" value={temperature} onChange={handleValueChange}>
+                            <FormControlLabel value="hot" control={<Radio />} label="Hot" />
+                            <FormControlLabel value="temperate" control={<Radio />} label="Temperate" />
+                            <FormControlLabel value="cool" control={<Radio />} label="Cool" />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="component-outlined">Added Instructions</InputLabel>
+                        <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
+                    </FormControl>
+                </Grid>
+            </Grid>
+        </div>
     );
 }
