@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
@@ -28,21 +28,21 @@ export default function MediaCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_peperomia-obtusfolia-green_variant_small_grant_black_72353c54-6669-40d7-be32-8a9dd009e984_1200x.jpg?v=1622115419"
+          image={props.originalImage}
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Plant
+            {props.plantName}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This is a plant. Plants have leaves. Leaves are nice. It also has flowers, which smell good. And elves, it has elves living in it. You don't mind tiny little elves, do you?
+            {props.wikiDescription}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="#00b786">
-          View
+        <Button size="small" color="#00b786" href={props.wikiURL} target='_blank' >
+          View Plant Wiki
         </Button>
         <Button size="small" color="#00b786">
           Add to Cart
