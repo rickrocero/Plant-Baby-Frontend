@@ -5,9 +5,11 @@ import NavBar from "../NavBar";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
-// import { Router } from "react-router";
-// import Profile from './Profile'
-// import Home from './Home'
+import Profile from './Profile'
+import { useHistory } from "react-router-dom";
+
+import Home from './Home'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const history = useHistory();
   const classes = useStyles();
   const [formState,setFormState] = useState({
     email:"",
@@ -35,6 +38,7 @@ export default function Login() {
     if(token){
       API.getUser(token).then(res=>{
         console.log(res.data);
+        console.log('token: ', token)
         setUserState({
           token:token,
           user:{
@@ -57,15 +61,18 @@ export default function Login() {
     
   },[])
 
+  
+    const handleOnClick = () => {
+        history.push('/home');
+      }
+
   const handleFormSubmit = e =>{
     e.preventDefault();
+    
     API.login(formState).then(res=>{
       console.log(res.data.user);
-      // console.log(res.data.user.id);
-      // console.log(res.data.user.first_name);
-      // console.log(res.data.user.last_name);
-      // console.log(res.data.user.email);
       localStorage.setItem("token",res.data.token)
+      console.log('token: ', res.data.token)
       setUserState({
         ...userState,
         token:res.data.token,
@@ -76,7 +83,8 @@ export default function Login() {
           id:res.data.id
         }
       })
-    }).catch(err=>{
+    },handleOnClick()
+    ).catch(err=>{
       console.log("error occured")
       console.log(err);
       localStorage.removeItem("token");
@@ -101,7 +109,7 @@ export default function Login() {
 
   return (
     <div className={classes.root}>
-       <NavBar />
+       <NavBar handleLogout={handleLogout} />
         <Grid container spacing={3}>
         <Grid item xs={12}>
         <img src= "./images/plant-baby-logo.png" alt="" />
@@ -112,7 +120,6 @@ export default function Login() {
         handleFormSubmit={handleFormSubmit} 
         formState={formState} 
         setFormState={setFormState} 
-        handleLogout={handleLogout}
         />
     </div>
     );

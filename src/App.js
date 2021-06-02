@@ -11,21 +11,22 @@ import Wrapper from './components/Wrapper/index'
 function App() {
  
     return (
-      <div>
-        {/* <Home></Home> */}
-         {/* <Store></Store> */}
+      <div> 
+        <Wrapper>
          <Router>
-           <Wrapper>
          <Route exact path="/" component={Home} />
          <Route exact path="/home" component={Home} />
-         <Route exact path="/profile" component={Profile} />
+         
+         <Route exact path="/profile">
+           <Profile/>
+         </Route>
+
          <Route exact path="/login" component={Login} />
          <Route exact path="/signup" component={Signup} />
          <Route exact path="/store" component={Store} />
          <Route exact path="/post" component={Post} />
+         </Router> 
          </Wrapper>
-         </Router>
-        {/* <Post></Post> */}
       </div>
     );
   
