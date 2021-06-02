@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fdfcfa"
   },
 
-  storeimg: {
-    alignItems: "center",
-    justifyContent: "center"
-  },
 
   margin: {
     backgroundColor:"#006a4e",
