@@ -1,6 +1,9 @@
 const axios = require("axios")
-const URL_PREFIX = "http://localhost:3001"
+//deployed
+// const URL_PREFIX = "deployed backend http"
 
+// LOCAL
+const URL_PREFIX = "http://localhost:3001"
 
 const API = {
     login: function (userData) {
@@ -17,7 +20,9 @@ const API = {
         })
     },
     imageLoad: function(image) {
-        return axios.post(`${URL_PREFIX}/api/search`, image)
+        return new Promise((resolve, reject) => {
+             axios.post(`${URL_PREFIX}/api/search`, image).then(res => resolve(res.data, err => reject(err)))
+        })
     },
     logOut: function() {
         return axios.get(`${URL_PREFIX}/api/logout`)
