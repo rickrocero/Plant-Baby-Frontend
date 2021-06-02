@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
+    backgroundColor: "#fdfcfa"
   },
 }));
 
@@ -133,11 +134,16 @@ export default function ComposedTextField(props) {
   return (
     <div className={classes.root}>
       <NavBar />
-      <Grid container spacing={3}>
+      <Grid container 
+        spacing={3}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}>
         <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt=""/>
         </Grid>
-      </Grid>
+
       <h2>Sign-up</h2>
       <SignupForm
         user={userState.user}
@@ -149,6 +155,7 @@ export default function ComposedTextField(props) {
         handleSignupFormSubmit={handleSignupFormSubmit}
         handleLogout={handleLogout}
       />
+      </Grid>  
     </div>
   );
 }

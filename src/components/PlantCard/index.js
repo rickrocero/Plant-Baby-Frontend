@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+
   },
   media: {
     height: 140,
@@ -40,10 +41,10 @@ export default function MediaCard() {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="#00b786">
           View
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="#00b786">
           Add to Cart
         </Button>
       </CardActions>
