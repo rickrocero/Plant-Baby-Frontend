@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
 import API from "../../utils/Api";
 import NavBar from "../NavBar";
+import Box from '@material-ui/core/Box';
 import SignupForm from "../SignupForm/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-    backgroundColor: "#fdfcfa"
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  hero: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#006a4e",
+    fontSize: "5rem",
   },
 }));
 
@@ -133,19 +145,18 @@ export default function ComposedTextField(props) {
 
   return (
     <div className={classes.root}>
-      <NavBar />
+      <NavBar />  
+      <Box className={classes.hero}>
+        <Box>Sign Up</Box>
+      </Box>
+      
       <Grid container 
         spacing={3}
         direction="column"
         alignItems="center"
         justify="center"
         style={{ minHeight: '100vh' }}>
-        <Grid item xs={12}>
-          <img src="./images/plant-baby-logo.png" alt=""/>
-        </Grid>
-
-      <h2>Sign-up</h2>
-      <SignupForm
+      <SignupForm className={classes.form}
         user={userState.user}
         handleFormSubmit={handleFormSubmit}
         formState={formState}
@@ -156,6 +167,7 @@ export default function ComposedTextField(props) {
         handleLogout={handleLogout}
       />
       </Grid>  
+
     </div>
   );
 }
