@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import API from '../../utils/Api'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import API from "../../utils/Api";
 import NavBar from "../NavBar";
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -9,9 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
 import Profile from './Profile'
 import { useHistory } from "react-router-dom";
-
-import Home from './Home'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   loginContainer: {
     paddingTop: theme.spacing(3)
+
   },
 }));
 
@@ -41,34 +39,74 @@ export default function Login() {
   const classes = useStyles();
   const [formState, setFormState] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
   const [userState, setUserState] = useState({
     token: "",
-    user: {
-    }
-  })
+    user: {},
+  });
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
-      API.getUser(token).then(res => {
-        console.log(res.data);
-        console.log('token: ', token)
+      console.log('hello')
+      API.getUser(token)
+        .then((res) => {
+          console.log(res.data);
+          console.log("token: ", token);
+          setUserState({
+            token: token,
+            user: {
+              email: res.data.email,
+              id: res.data.id,
+              first_name: res.data.first_name,
+              last_name: res.data.last_name,
+            },
+          });console.log(userState)
+        })
+        .catch((err) => {
+          console.log("no logged in user");
+          setUserState({
+            token: "",
+            user: {},
+          });
+        });
+    } else {
+      console.log("no token provided");
+    }
+  }, []);
 
+  const handleOnClick = () => {
+    history.push("/home");
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    API.login(formState)
+      .then((res) => {
+        console.log(res.data.user);
+        localStorage.setItem("token", res.data.token);
+        console.log("token: ", res.data.token);
         setUserState({
-          token: token,
+          ...userState,
+          token: res.data.token,
           user: {
             email: res.data.email,
-            id: res.data.id,
             first_name: res.data.first_name,
-            last_name: res.data.last_name
-          }
-        })
-
-      }).catch(err => {
-        console.log("no logged in user")
+            last_name: res.data.last_name,
+            id: res.data.id,
+          },
+         
+        }); console.log(userState)
+      },
+      //  handleOnClick()
+       )
+      .catch((err) => {
+        console.log("error occured");
+        console.log(err);
+        localStorage.removeItem("token");
         setUserState({
           token: "",
           user: {}
@@ -111,17 +149,17 @@ export default function Login() {
     })
     setFormState({
       email: "",
-      password: ""
-    })
-  }
+      password: "",
+    });
+  };
 
   const handleLogout = () => {
     setUserState({
       token: "",
-      user: {}
-    })
-    localStorage.removeItem("token")
-  }
+      user: {},
+    });
+    localStorage.removeItem("token");
+  };
 
   return (
     <div className={classes.root}>

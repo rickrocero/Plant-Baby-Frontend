@@ -7,13 +7,13 @@ const URL_PREFIX = "http://localhost:3001"
 
 const API = {
     login: function (userData) {
-        return axios.post(`${URL_PREFIX}/api/login`, userData)
+        return axios.post(`${URL_PREFIX}/auth/login`, userData)
     },
     signup: function (userData) {
-        return axios.post(`${URL_PREFIX}/api/signup`, userData)
+        return axios.post(`${URL_PREFIX}/auth/signup`, userData)
     },
     getUser: function (token) {
-        return axios.get(`${URL_PREFIX}/api/profile`, {
+        return axios.get(`${URL_PREFIX}/auth/profile`, {
             headers: {
                 authorization: `Bearer ${token}`
             }
@@ -26,6 +26,9 @@ const API = {
     },
     logOut: function() {
         return axios.get(`${URL_PREFIX}/api/logout`)
+    },
+    createPlant: function(plantData, token){
+        return axios.post(`${URL_PREFIX}/api/plant`, plantData)
     }
 }
 
