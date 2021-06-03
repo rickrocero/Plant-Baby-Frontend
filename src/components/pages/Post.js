@@ -2,10 +2,10 @@ import React from 'react'
 // import ReactDOM from 'react-dom'
 // // import './index.css'
 
-// import ImageUpload from "../ImageUpload";
+import PostImage from "../PostImage/PostImage";
 
-// import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
-// import {Cloudinary} from 'cloudinary-core';
+import {Image} from 'cloudinary-react';
+import {Cloudinary} from 'cloudinary-core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -96,6 +96,9 @@ export default function ComposedTextField() {
                 justify="center">
                 <Grid item xs={12}>
                     <img src="./images/plant-baby-logo.png" alt="" />
+                </Grid>
+                <Grid item xs={12}>
+                    <PostImage></PostImage>
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl variant="outlined">

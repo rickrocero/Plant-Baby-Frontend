@@ -10,27 +10,25 @@ import Wrapper from './components/Wrapper/index'
 
 
 function App() {
-
-  return (
-    <div>
-      <Wrapper>
-        <Router>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/home" component={Home} />
-
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/store" component={Store} />
-          <Route exact path="/post" component={Post} />
-        </Router>
-      </Wrapper>
-    </div>
-  );
-
+ 
+    return (
+      <div> 
+        <Wrapper>
+         <Router>
+         <Route exact path="/" component={Home} />
+         <Route exact path="/home" component={Home} />
+         <Route exact path="/profile">
+           <Profile/>
+         </Route>
+         <Route exact path="/login" component={Login} />
+         <Route exact path="/signup" component={Signup} />
+         <Route exact path="/store" component={Store} />
+         <Route exact path="/post" component={Post} />
+         </Router> 
+         </Wrapper>
+      </div>
+    );
+  
 }
 
 export default App;
