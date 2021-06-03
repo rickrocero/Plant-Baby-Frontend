@@ -98,11 +98,8 @@ export default function Login() {
             last_name: res.data.last_name,
             id: res.data.id,
           },
-         
         }); console.log(userState)
-      },
-      //  handleOnClick()
-       )
+      },handleOnClick())
       .catch((err) => {
         console.log("error occured");
         console.log(err);
@@ -112,46 +109,47 @@ export default function Login() {
           user: {}
         })
       })
-    } else {
-      console.log("no token provided")
+      setFormState({
+        email:"",
+        password:""
+      })
     }
-  }, [])
 
-  const handleOnClick = () => {
-    history.push('/home');
-  }
+  // const handleOnClick = () => {
+  //   history.push('/home');
+  // }
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    API.login(formState).then(res => {
-      console.log(res.data.user);
-      localStorage.setItem("token", res.data.token)
-      console.log('token: ', res.data.token)
-      setUserState({
-        ...userState,
-        token: res.data.token,
-        user: {
-          email: res.data.email,
-          first_name: res.data.first_name,
-          last_name: res.data.last_name,
-          id: res.data.id
-        }
-      })
-    }, handleOnClick()
-    ).catch(err => {
-      console.log("error occured")
-      console.log(err);
-      localStorage.removeItem("token");
-      setUserState({
-        token: "",
-        user: {}
-      })
-    })
-    setFormState({
-      email: "",
-      password: "",
-    });
-  };
+  // const handleFormSubmit = e => {
+  //   e.preventDefault();
+  //   API.login(formState).then(res => {
+  //     console.log(res.data.user);
+  //     localStorage.setItem("token", res.data.token)
+  //     console.log('token: ', res.data.token)
+  //     setUserState({
+  //       ...userState,
+  //       token: res.data.token,
+  //       user: {
+  //         email: res.data.email,
+  //         first_name: res.data.first_name,
+  //         last_name: res.data.last_name,
+  //         id: res.data.id
+  //       }
+  //     })
+  //   }, handleOnClick()
+  //   ).catch(err => {
+  //     console.log("error occured")
+  //     console.log(err);
+  //     localStorage.removeItem("token");
+  //     setUserState({
+  //       token: "",
+  //       user: {}
+  //     })
+  //   })
+  //   setFormState({
+  //     email: "",
+  //     password: "",
+  //   });
+  // };
 
   const handleLogout = () => {
     setUserState({
