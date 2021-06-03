@@ -27,14 +27,19 @@ export default function Profile() {
   //once authenticated pull the user data to populate the fields on the profile page
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // console.log(token)
     if (token) {
       API.getUser(token)
         .then((res) => {
           console.log(res.data);
-          console.log(res.data.first_name);
-          console.log(res.data.last_name);
-          console.log(res.data.email);
+          setUserState({
+            token: token,
+            user: {
+              email: res.data.email,
+              id: res.data.id,
+              first_name: res.data.first_name,
+              last_name: res.data.last_name,
+            },
+          });
         })
         .catch((err) => {
           console.log("no logged in user");
@@ -47,28 +52,6 @@ export default function Profile() {
       console.log("no token provided");
     }
   }, []);
-  
-   const renderProfile = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-        API.getUser(token)
-
-          .then((res) => {
-            console.log(res.data);
-            console.log(res.data.first_name);
-            console.log(res.data.last_name);
-            console.log(res.data.email);
-            // userProfile = {
-            //     first_name:res.data.first_name,
-            //     last_name:res.data.last_name,
-            //     email:res.data.email
-
-            // }
-          }) 
-      return ; 
-    }
-    
-  };
 
   return (
     <div className={classes.root}>
@@ -79,24 +62,24 @@ export default function Profile() {
         </Grid>
 
         <Grid item xs={6}>
-          <p>First Name: </p>
+          <p>First Name: {userState.user.first_name} </p>
         </Grid>
         <Grid item xs={6}>
-          <p>Last Name: </p>
+          <p>Last Name: {userState.user.last_name} </p>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <p>Username: </p>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
-          <p>Email: </p>
+          <p>Email: {userState.user.email} </p>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <p>Password: </p>
-        </Grid>
+        </Grid> */}
       </Grid>
-      <div>
+      {/* <div>
         {renderProfile()}
-        </div>
+        </div> */}
     </div>
   );
 }

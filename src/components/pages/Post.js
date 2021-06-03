@@ -1,12 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import ReactDOM from 'react-dom'
 // // import './index.css'
-
 import PostImage from "../PostImage/PostImage";
-
-import {Image} from 'cloudinary-react';
-import {Cloudinary} from 'cloudinary-core';
-
+import ImageUpload from "../ImageUpload/ImageUpload";
+import { Image } from 'cloudinary-react';
+import { Cloudinary } from 'cloudinary-core';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -18,10 +16,12 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import NavBar from '../NavBar'
-
+import PlantCard from '../PlantCard'
+import API from '../../utils/Api.js'
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
@@ -41,20 +41,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "5rem",
     },
 }));
-
 export default function ComposedTextField() {
     const [name, setName] = React.useState({
         plant: "",
+        description: "",
         instruct: ""
     });
-
-    const { plant, instruct } = name;
-
+    const { plant, description, instruct } = name;
     const handleChange = (event) => {
         setName({ ...name, [event.target.name]: event.target.value });
     };
-
-
     const [value, setValue] = React.useState({
         flowers: "",
         water: "",
@@ -62,36 +58,81 @@ export default function ComposedTextField() {
         fertilizer: "",
         temperature: ""
     });
-
     const { flowers, water, sunlight, fertilizer, temperature } = value;
-
     const handleValueChange = (event) => {
         setValue({ ...value, [event.target.name]: event.target.value });
     };
-
-
     const [checkState, setCheckState] = React.useState({
         pets: false,
         easycare: false,
         exotic: false,
         restricted: false,
     });
-
     const { pets, easycare, exotic, restricted } = checkState;
-
     const handleCheckChange = (event) => {
         setCheckState({ ...checkState, [event.target.name]: event.target.checked });
     };
 
+    const [inventoryState, setInventoryState] = useState({
+        inventory: ""
+    }
+    ); 
 
+    useEffect(() =>{
+        const token = localStorage.getItem('token');
+        if(token) {
+            API.getUser(token)
+            .then((res) => {
+                // console.log(res.data.id)
+                const id = res.data.id
+                API.getInventory(id, token)
+                .then((res) => {
+                    // console.log(res.data.inventory.id)
+                    setInventoryState({
+                        inventory: res.data.inventory.id
+                    })
+                    // console.log(inventoryState)
+                })
+            }).catch((err)=>{
+                console.log('error: ', err)
+            })
+        }
+    })
+
+    const buildCard = (event) => {
+        event.preventDefault();
+        console.log("success")
+        const token = localStorage.getItem('token')
+        console.log('token: ', token)
+        const inventId= inventoryState.inventory
+        console.log(inventId)
+          const plantData = {type: plant,
+            description: flowers,
+            inventory_id: inventId
+        }
+        console.log(plantData);
+        API.createPlant(plantData, token)
+        .then((res) => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
+        // return (
+        //     <PlantCard
+        //         tags={[
+        //             { pets },
+        //             { easycare },
+        //             { exotic },
+        //             { restricted },
+        //         ]}
+        //         plantName={plant}
+        //         wikiDescription={description}
+        //     />
+        // )
+    }
     const classes = useStyles();
-
-
     return (
         <div className={classes.root}>
-            {/* <Grid container spacing={3}>
-            <ImageUpload></ImageUpload>
-        </Grid> */}
             <NavBar />
             <Box className={classes.hero}>
                 <Box>Post a Plant</Box>
@@ -106,12 +147,24 @@ export default function ComposedTextField() {
                     <img src="./images/plant-baby-logo.png" alt="" />
                 </Grid>
                 <Grid item xs={12}>
+                    <ImageUpload />
+                </Grid>
+                <Grid item xs={12}>
+                    <h2 className="text-center">Or build your card from scratch</h2>
+                </Grid>
+                <Grid item xs={12}>
                     <PostImage></PostImage>
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="component-outlined">Plant Name</InputLabel>
                         <OutlinedInput id="component-outlined" value={plant} onChange={handleChange} label="Name" name="plant" />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="component-outlined">Description</InputLabel>
+                        <OutlinedInput id="component-outlined" value={description} onChange={handleChange} label="Description" name="description" />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12}>
@@ -191,6 +244,9 @@ export default function ComposedTextField() {
                         <InputLabel htmlFor="component-outlined">Added Instructions</InputLabel>
                         <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
                     </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={buildCard}>Add new listing</Button>
                 </Grid>
             </Grid>
         </div>
