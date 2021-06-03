@@ -47,6 +47,7 @@ export default function MediaCard(props) {
         <Button size="small" color="#00b786">
           Add to Cart
         </Button>
+        <Button onClick={props.onClick} >Add to Inventory</Button>
       </CardActions>
     </Card>
   );

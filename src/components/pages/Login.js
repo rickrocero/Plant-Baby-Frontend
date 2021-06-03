@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import API from '../../utils/Api'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import API from "../../utils/Api";
 import NavBar from "../NavBar";
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
 import Profile from './Profile'
 import { useHistory } from "react-router-dom";
 
-import Home from './Home'
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-    justify: 'center',
-    backgroundColor: "#fdfcfa"
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  header: {
-    width: 300,
-    margin: 'auto'
-  }
+  hero: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#006a4e",
+    fontSize: "5rem",
+  },
+  loginContainer: {
+    paddingTop: theme.spacing(3)
+
+  },
 }));
 
 export default function Login() {
@@ -30,110 +39,100 @@ export default function Login() {
   const classes = useStyles();
   const [formState, setFormState] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
   const [userState, setUserState] = useState({
     token: "",
-    user: {
-    }
-  })
+    user: {},
+  });
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
-      API.getUser(token).then(res => {
-        console.log(res.data);
-        console.log('token: ', token)
-
-        setUserState({
-          token: token,
-          user: {
-            email: res.data.email,
-            id: res.data.id,
-            first_name: res.data.first_name,
-            last_name: res.data.last_name
-          }
+      console.log('hello')
+      API.getUser(token)
+        .then((res) => {
+          console.log(res.data);
+          console.log("token: ", token);
+          setUserState({
+            token: token,
+            user: {
+              email: res.data.email,
+              id: res.data.id,
+              first_name: res.data.first_name,
+              last_name: res.data.last_name,
+            },
+          }); console.log(userState)
         })
-
-      }).catch(err => {
-        console.log("no logged in user")
-        setUserState({
-          token: "",
-          user: {}
-        })
-      })
+        .catch((err) => {
+          console.log("no logged in user");
+          setUserState({
+            token: "",
+            user: {},
+          });
+        });
     } else {
-      console.log("no token provided")
+      console.log("no token provided");
     }
-  }, [])
+  }, []);
 
-  const handleOnClick = () => {
-    history.push('/home');
-  }
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    API.login(formState).then(res => {
-      console.log(res.data.user);
-      localStorage.setItem("token", res.data.token)
-      console.log('token: ', res.data.token)
-      setUserState({
-        ...userState,
-        token: res.data.token,
-        user: {
-          email: res.data.email,
-          first_name: res.data.first_name,
-          last_name: res.data.last_name,
-          id: res.data.id
-        }
-      })
-    }, handleOnClick()
-    ).catch(err => {
-      console.log("error occured")
-      console.log(err);
-      localStorage.removeItem("token");
-      setUserState({
-        token: "",
-        user: {}
-      })
+const handleFormSubmit = e => {
+  e.preventDefault();
+  API.login(formState).then(res => {
+    console.log(res.data.user);
+    localStorage.setItem("token", res.data.token)
+    console.log('token: ', res.data.token)
+    setUserState({
+      ...userState,
+      token: res.data.token,
+      user: {
+        email: res.data.email,
+        first_name: res.data.first_name,
+        last_name: res.data.last_name,
+        id: res.data.id
+      }
     })
-    setFormState({
-      email: "",
-      password: ""
-    })
-  }
-
-  const handleLogout = () => {
+  }, handleOnClick()
+  ).catch(err => {
+    console.log("error occured")
+    console.log(err);
+    localStorage.removeItem("token");
     setUserState({
       token: "",
       user: {}
     })
-    localStorage.removeItem("token")
-  }
+  })
+  setFormState({
+    email: "",
+    password: "",
+  });
+};
 
-  return (
-    <div className={classes.root}>
-      <NavBar handleLogout={handleLogout} />
+const handleLogout = () => {
+  setUserState({
+    token: "",
+    user: {},
+  });
+  localStorage.removeItem("token");
+};
 
-      <Grid container 
-        spacing={3}
-        minWidth="100%"
-        direction="column"
-        alignItems="center"
-        justify="center">
-        <img src={"https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg"} className="header" alt="plants" />
-      </Grid>
-
+return (
+  <div className={classes.root}>
+    <NavBar handleLogout={handleLogout} />
+    <Box className={classes.hero}>
+      <Box>Login</Box>
+    </Box>
+    <Container maxWidth="lg" className={classes.loginContainer}>
       <Grid container
-        spacing={3}
         direction="column"
         alignItems="center"
-        justify="center">
+        justify="center"
+        style={{ minHeight: '100vh' }}>
         <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt="" />
         </Grid>
-        <h2>Log-in</h2>
         <LoginForm user={userState.user}
           handleFormSubmit={handleFormSubmit}
           formState={formState}
@@ -141,6 +140,7 @@ export default function Login() {
           handleLogout={handleLogout}
         />
       </Grid>
-    </div>
-  );
-}
+    </Container>
+  </div>
+);
+

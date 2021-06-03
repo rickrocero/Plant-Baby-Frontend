@@ -14,7 +14,7 @@ function SignupForm(props) {
         <OutlinedInput name="last_name" value = {props.signupFormState.last_name} onChange={(e)=>props.setSignupFormState({...props.signupFormState,last_name:e.target.value})}/>
          <InputLabel htmlFor="component-outlined">Password</InputLabel>
         <OutlinedInput name="password"  type="password" value = {props.signupFormState.password} onChange={(e)=>props.setSignupFormState({...props.signupFormState,password:e.target.value})}/>
-        <OutlinedInput type="submit" value="signup"/>
+        <button type="submit" value="signup">Signup</button>
       </form>
     )
 }

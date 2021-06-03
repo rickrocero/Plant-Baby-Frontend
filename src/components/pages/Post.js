@@ -19,14 +19,26 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import NavBar from '../NavBar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-        backgroundColor: "#fdfcfa"
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        position: "relative",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    hero: {
+        position: "relative",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#006a4e",
+        fontSize: "5rem",
     },
 }));
 
@@ -81,19 +93,15 @@ export default function ComposedTextField() {
             <ImageUpload></ImageUpload>
         </Grid> */}
             <NavBar />
-            <Grid container
-                spacing={3}
-                minWidth="100%"
-                direction="column"
-                alignItems="center"
-                justify="center">
-                <img src={"https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg"} className="header" alt="plants" />
-            </Grid>
+            <Box className={classes.hero}>
+                <Box>Post a Plant</Box>
+            </Box>
             <Grid container
                 spacing={3}
                 direction="column"
                 alignItems="center"
-                justify="center">
+                justify="center"
+                style={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <img src="./images/plant-baby-logo.png" alt="" />
                 </Grid>

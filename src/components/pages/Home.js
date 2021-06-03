@@ -1,5 +1,7 @@
 import React from 'react'
 import NavBar from "../NavBar";
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import ImageUpload from '../ImageUpload/ImageUpload'
 
 import PlantCard from "../PlantCard";
@@ -17,6 +19,27 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  hero: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://data.whicdn.com/images/303107522/original.png')`,
+    height: "500px",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    padding: "10px",
+    fontSize: "4rem",
+    [theme.breakpoints.down("sm")]: {
+      height: 300,
+      fontSize: "3em"
+    }
+  },  
+  homeContainer: {
+    paddingTop: theme.spacing(3)
+  },
 }));
 
 export default function Home() {
@@ -26,11 +49,12 @@ export default function Home() {
 
     <div className={classes.root}>
       <NavBar />
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <img src={"https://cdn.onekindesign.com/wp-content/uploads/2019/08/Inspiring-Vegetable-Garden-Ideas-01-1-Kindesign.jpg"} alt="backyard" />
-        </Grid>
 
+      <Box className={classes.hero}>
+        <Box>Welcome To Plant Baby!</Box>
+      </Box>
+      <Container maxWidth="lg" className={classes.homeContainer}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <PlantCard></PlantCard>
         </Grid>
@@ -42,6 +66,7 @@ export default function Home() {
         </Grid>
       </Grid>
       <ImageUpload />
+            </Container>
     </div>
   );
 }
