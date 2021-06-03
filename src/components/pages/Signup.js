@@ -4,6 +4,7 @@ import NavBar from "../NavBar";
 import SignupForm from "../SignupForm/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ComposedTextField(props) {
+  const history = useHistory();
   const classes = useStyles();
   const [formState, setFormState] = useState({
     email: "",
@@ -32,18 +34,24 @@ export default function ComposedTextField(props) {
     user: {},
   });
 
+  const handleOnClick = () => {
+    history.push("/home");
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       API.getUser(token)
         .then((res) => {
           console.log(res.data);
+          console.log('token: ', token)
           setUserState({
             token: token,
             user: {
               email: res.data.email,
+              first_name: res.data.first_name,
+              last_name: res.data.last_name,
               id: res.data.id,
-              name: res.data.name,
             },
           });
         })
@@ -65,6 +73,7 @@ export default function ComposedTextField(props) {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
+        console.log('token: ', res.data.token)
         setUserState({
           ...userState,
           token: res.data.token,
@@ -102,14 +111,14 @@ export default function ComposedTextField(props) {
           token: res.data.token,
           user: {
             email: res.data.email,
-            name: res.data.name,
+            first_name: res.data.first_name,
+            last_name: res.data.last_name,
             id: res.data.id,
           },
         });
-      })
+      }, handleOnClick())
       .catch((err) => {
-        console.log("error occured");
-        console.log(err);
+        console.log("error occured", err);
         localStorage.removeItem("token");
         setUserState({
           token: "",

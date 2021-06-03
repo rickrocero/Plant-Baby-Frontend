@@ -25,6 +25,7 @@ export default class ImageUpload extends React.Component {
         .then(res => {
           console.log(res);
           console.log(res.dataRes)
+          //fetch post plant route to create plant
           this.setState({
             originalImage: res.dataRes.images[0].url,
             wikiDescription: res.dataRes.suggestions[0].plant_details.wiki_description.value,
@@ -37,10 +38,6 @@ export default class ImageUpload extends React.Component {
           console.log("Error", error);
         });
     }
-  }
-
-  componentDidMount(){
-  
   }
 
   render() {
