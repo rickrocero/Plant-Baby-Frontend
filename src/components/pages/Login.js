@@ -111,7 +111,12 @@ export default function Login() {
   return (
     <div className={classes.root}>
        <NavBar handleLogout={handleLogout} />
-        <Grid container spacing={3}>
+        <Grid container 
+        spacing={3}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}>
         <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt="" />
         </Grid>
