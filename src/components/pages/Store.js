@@ -1,5 +1,7 @@
 import React from 'react'
 import NavBar from "../NavBar";
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -14,15 +16,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fdfcfa"
   },
 
-  storeimg: {
-    alignItems: "center",
-    justifyContent: "center"
-  },
 
   margin: {
     backgroundColor:"#006a4e",
     color: "#e1c0ad"
-  }
+  },
+  hero: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg')`,
+    height: "500px",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    padding: "10px",
+    fontSize: "4rem",
+    [theme.breakpoints.down("sm")]: {
+      height: 300,
+      fontSize: "3em"
+    }
+  },
+  shopContainer: {
+    paddingTop: theme.spacing(3)
+  },
 }));
 
 export default function ComposedTextField() {
@@ -36,11 +55,15 @@ export default function ComposedTextField() {
 
   return (
     <div>
-      <Grid container spacing={3}>
         <NavBar />
-        <Grid item xs={12}>
-          <img src={"https://static.wixstatic.com/media/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg/v1/fill/w_1000,h_667,al_c,q_90,usm_0.66_1.00_0.01/be01c3_617ff8ef453c4395a76ac6d87b2af9a1~mv2.jpg"} className={classes.storeimg} alt="plants on a shelf"/>
-        </Grid>
+
+        <Box className={classes.hero}>
+        <Box>Shop</Box>
+        </Box>
+
+        <Container maxWidth="lg" className={classes.shopContainer}>
+
+        <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
           <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
             Pet Friendly
@@ -81,6 +104,7 @@ export default function ComposedTextField() {
         </Grid>
       </Grid>
       <CheckoutForm />
+      </Container>
     </div>
   );
 }
