@@ -32,12 +32,13 @@ export default function Login() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
+      console.log('hello')
       API.getUser(token)
         .then((res) => {
           console.log(res.data);
           console.log("token: ", token);
-
           setUserState({
             token: token,
             user: {
@@ -46,7 +47,7 @@ export default function Login() {
               first_name: res.data.first_name,
               last_name: res.data.last_name,
             },
-          });
+          });console.log(userState)
         })
         .catch((err) => {
           console.log("no logged in user");
@@ -80,8 +81,11 @@ export default function Login() {
             last_name: res.data.last_name,
             id: res.data.id,
           },
-        });
-      }, handleOnClick())
+         
+        }); console.log(userState)
+      },
+      //  handleOnClick()
+       )
       .catch((err) => {
         console.log("error occured");
         console.log(err);

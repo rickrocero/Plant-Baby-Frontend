@@ -25,7 +25,6 @@ export default class ImageUpload extends React.Component {
         .then(res => {
           console.log(res);
           console.log(res.dataRes)
-          //fetch post plant route to create plant
           this.setState({
             originalImage: res.dataRes.images[0].url,
             wikiDescription: res.dataRes.suggestions[0].plant_details.wiki_description.value,
@@ -33,12 +32,29 @@ export default class ImageUpload extends React.Component {
             plantImageURL: res.dataRes.suggestions[0].similar_images[0].url_small,
             wikiURL: res.dataRes.suggestions[0].plant_details.url,
           })
+
         })
         .catch((error) => {
           console.log("Error", error);
         });
     }
   }
+
+  onClick=()=>{
+    const token = localStorage.getItem('token')
+    const plantData = {image_file: this.state.originalImage,
+            description: this.state.wikiDescription,
+            type: this.state.plantName}
+    console.log(this.state)       
+    console.log(token)
+     API.createPlant(plantData, token)
+          .then(res => {
+            console.log(res)
+            
+          }).catch((error)=>{
+            console.log('error', error)
+          })
+  } 
 
   render() {
     return (
@@ -52,7 +68,9 @@ export default class ImageUpload extends React.Component {
         plantName={this.state.plant_name}
         wikiDescription={this.state.wikiDescription}
         wikiURL={this.state.wikiURL}
+        onClick={this.onClick}
         />
+        
       </div>
     );
   }
