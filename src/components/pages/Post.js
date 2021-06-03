@@ -81,12 +81,19 @@ export default function ComposedTextField() {
             <ImageUpload></ImageUpload>
         </Grid> */}
             <NavBar />
-            <Grid container 
-            spacing={3}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: '100vh' }}>
+            <Grid container
+                spacing={3}
+                minWidth="100%"
+                direction="column"
+                alignItems="center"
+                justify="center">
+                <img src={"https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg"} className="header" alt="plants" />
+            </Grid>
+            <Grid container
+                spacing={3}
+                direction="column"
+                alignItems="center"
+                justify="center">
                 <Grid item xs={12}>
                     <img src="./images/plant-baby-logo.png" alt="" />
                 </Grid>

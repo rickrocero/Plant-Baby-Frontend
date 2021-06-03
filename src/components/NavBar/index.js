@@ -28,22 +28,18 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
 
   logo: {
-    left: '600px',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+    margin: 'auto',
+    textAlign: 'center',
+    maxWidth: '100%',
+    maxHeight: '70%',
+},
 
   inputRoot: {
     color: "inherit",
   },
-  
+
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -68,10 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   navbar: {
     backgroundColor: "#e1c0ad"
-  },
-
-  fullList: {
-    minWidth: "200ch"
   }
 
 }));
@@ -162,7 +154,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -274,6 +266,9 @@ export default function PrimarySearchAppBar() {
           >
             {list("left")}
           </Drawer>
+            {/* <Toolbar>
+              <img src="./images/plant-baby-logo.png" className={classes.logo} alt="logo" />
+            </Toolbar> */}
           <Typography className={classes.title} variant="h6" noWrap>
             <img src= "./images/plant-baby-logo.png" className={classes.logo} alt="logo" />
           </Typography>

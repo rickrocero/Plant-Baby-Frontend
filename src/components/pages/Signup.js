@@ -10,9 +10,10 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
-    backgroundColor: "#fdfcfa"
+    backgroundImage: "./images/background.jpg"
   },
 }));
+
 
 export default function ComposedTextField(props) {
   const classes = useStyles();
@@ -20,6 +21,8 @@ export default function ComposedTextField(props) {
     email: "",
     password: "",
   });
+
+
   const [signupFormState, setSignupFormState] = useState({
     first_name: "",
     last_name: "",
@@ -134,28 +137,35 @@ export default function ComposedTextField(props) {
   return (
     <div className={classes.root}>
       <NavBar />
-      <Grid container 
+      <Grid container
+        spacing={3}
+        minWidth="100%"
+        direction="column"
+        alignItems="center"
+        justify="center">
+        <img src={"https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg"} className="header" alt="plants" />
+      </Grid>
+      <Grid container
         spacing={3}
         direction="column"
         alignItems="center"
-        justify="center"
-        style={{ minHeight: '100vh' }}>
+        justify="center">
         <Grid item xs={12}>
-          <img src="./images/plant-baby-logo.png" alt=""/>
+          <img src="./images/plant-baby-logo.png" alt="" />
         </Grid>
 
-      <h2>Sign-up</h2>
-      <SignupForm
-        user={userState.user}
-        handleFormSubmit={handleFormSubmit}
-        formState={formState}
-        setFormState={setFormState}
-        signupFormState={signupFormState}
-        setSignupFormState={setSignupFormState}
-        handleSignupFormSubmit={handleSignupFormSubmit}
-        handleLogout={handleLogout}
-      />
-      </Grid>  
+        <h2>Sign-up</h2>
+        <SignupForm
+          user={userState.user}
+          handleFormSubmit={handleFormSubmit}
+          formState={formState}
+          setFormState={setFormState}
+          signupFormState={signupFormState}
+          setSignupFormState={setSignupFormState}
+          handleSignupFormSubmit={handleSignupFormSubmit}
+          handleLogout={handleLogout}
+        />
+      </Grid>
     </div>
   );
 }
