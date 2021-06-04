@@ -62,9 +62,9 @@ export default function ComposedTextField(props) {
     const [name, setName] = React.useState({
         plant: "",
         description: "",
-        instruct: ""
+        price: ""
     });
-    const { plant, description, instruct } = name;
+    const { plant, description, price } = name;
     const handleChange = (event) => {
         setName({ ...name, [event.target.name]: event.target.value });
     };
@@ -75,27 +75,27 @@ export default function ComposedTextField(props) {
         })
     }
 
-    const [value, setValue] = React.useState({
-        flowers: "",
-        water: "",
-        sunlight: "",
-        fertilizer: "",
-        temperature: ""
-    });
-    const { flowers, water, sunlight, fertilizer, temperature } = value;
-    const handleValueChange = (event) => {
-        setValue({ ...value, [event.target.name]: event.target.value });
-    };
-    const [checkState, setCheckState] = React.useState({
-        pets: false,
-        easycare: false,
-        exotic: false,
-        restricted: false,
-    });
-    const { pets, easycare, exotic, restricted } = checkState;
-    const handleCheckChange = (event) => {
-        setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-    };
+    // const [value, setValue] = React.useState({
+    //     flowers: "",
+    //     water: "",
+    //     sunlight: "",
+    //     fertilizer: "",
+    //     temperature: ""
+    // });
+    // const { flowers, water, sunlight, fertilizer, temperature } = value;
+    // const handleValueChange = (event) => {
+    //     setValue({ ...value, [event.target.name]: event.target.value });
+    // };
+    // const [checkState, setCheckState] = React.useState({
+    //     pets: false,
+    //     easycare: false,
+    //     exotic: false,
+    //     restricted: false,
+    // });
+    // const { pets, easycare, exotic, restricted } = checkState;
+    // const handleCheckChange = (event) => {
+    //     setCheckState({ ...checkState, [event.target.name]: event.target.checked });
+    // };
 
     const [inventoryState, setInventoryState] = useState({
         inventory: ""
@@ -134,7 +134,8 @@ export default function ComposedTextField(props) {
         const plantData = {
             type: plant,
             image_file: imageState.image_url,
-            description: flowers,
+            price: price,
+            description: description,
             inventory_id: inventId
         }
         console.log(plantData);
@@ -183,11 +184,19 @@ export default function ComposedTextField(props) {
 
                     <Grid >
                         <FormControl variant="outlined">
+                            <InputLabel htmlFor="component-outlined">Price</InputLabel>
+                            <OutlinedInput id="component-outlined" value={price} onChange={handleChange} label="price" name="price" />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid >
+                        <FormControl variant="outlined">
                             <InputLabel htmlFor="component-outlined">Description</InputLabel>
                             <OutlinedInput id="component-outlined" value={description} onChange={handleChange} label="Description" name="description" />
                         </FormControl>
                     </Grid>
-                    <Grid >
+
+                    {/* <Grid >
 
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel component="legend">Pick all that apply</FormLabel>
@@ -265,9 +274,9 @@ export default function ComposedTextField(props) {
                             <InputLabel htmlFor="component-outlined">Added Instructions</InputLabel>
                             <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
                         </FormControl>
-                    </Grid>
+                    </Grid> */}
                     <Grid >
-                        <Button variant="contained" onClick={buildCard}>Add new listing</Button>
+                        <Button variant="contained" onClick={buildCard}>Add To Inventory</Button>
                     </Grid>
                 </Grid>
             </Container>
