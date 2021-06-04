@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import CheckoutForm from '../CheckoutForm/index'
 import ForSalePlantCard from '../ForSalePlantCard/index'
 import API from '../../utils/Api'
+import ProfilePlantCard from '../ProfilePlantCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,8 @@ export default function ComposedTextField() {
   const [name, setName] = React.useState('Composed TextField');
   const classes = useStyles();
 
+  const [plantState, setPlantState] = useState([]);
+
   const handleChange = (event) => {
     setName(event.target.value);
   };
@@ -59,10 +62,11 @@ export default function ComposedTextField() {
     console.log("token: ", token)
         API.getAllPlants(token)
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
+            const plants = res.data
+            setPlantState(plants)
+            console.log(plantState)
           
-        }).catch((err)=>{
-            console.log('error: ', err)
         })
 }, []);
 
@@ -99,22 +103,14 @@ export default function ComposedTextField() {
       </Button>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
+        {plantState.map((plant) => (
+        <ProfilePlantCard
+          plantName={plant.type}
+          wikiDescription={plant.description}
+          originalImage={plant.image_file}
+          id={plant.id}
+        />
+      ))}
         </Grid>
       </Grid>
       {/* <CheckoutForm /> */}
