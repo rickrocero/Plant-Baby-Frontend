@@ -41,6 +41,27 @@ const API = {
             }
         })
     },
+    getPlant: function(id, token){
+        return axios.get(`${URL_PREFIX}/api/plant/${id}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+    },
+    getPlantInventory: function(id, token){
+        return axios.get(`${URL_PREFIX}/api/inventory/${id}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+    },
+    getAllPlants: function(token){
+        return axios.get(`${URL_PREFIX}/api/plant/allplants`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+    },
 }
 
 export default API

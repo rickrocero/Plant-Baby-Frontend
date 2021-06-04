@@ -119,10 +119,10 @@ var purchase = {
         <span id="button-text">Pay now</span>
       </button>
       <p id="card-error" role="alert"></p>
-      <p className="result-message hidden">
+      {/* <p className="result-message hidden">
         Payment succeeded, see the result in your
         <a href="#" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-      </p>
+      </p> */}
     </form>
         </div>
     )

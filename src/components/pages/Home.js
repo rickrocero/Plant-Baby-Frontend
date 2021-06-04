@@ -3,9 +3,7 @@ import NavBar from "../NavBar";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ImageUpload from '../ImageUpload/ImageUpload'
-
 import PlantCard from "../PlantCard";
-
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
@@ -65,7 +63,6 @@ export default function Home() {
           <PlantCard></PlantCard>
         </Grid>
       </Grid>
-      <ImageUpload />
             </Container>
     </div>
   );
