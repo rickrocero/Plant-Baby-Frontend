@@ -6,13 +6,16 @@ import SignupForm from "../SignupForm/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { useHistory } from "react-router-dom";
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+    backgroundSize: "cover",
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
@@ -158,16 +161,19 @@ export default function ComposedTextField(props) {
   return (
     <div className={classes.root}>
       <NavBar />  
-      <Box className={classes.hero}>
-        <Box>Sign Up</Box>
-      </Box>
-      
-      <Grid container 
+
+    <Grid container 
         spacing={3}
+        paddingBottom= "10px"
         direction="column"
         alignItems="center"
         justify="center"
         style={{ minHeight: '100vh' }}>
+
+      <Box className={classes.hero}>
+        <Box>Sign Up</Box>
+      </Box>
+      
       <SignupForm className={classes.form}
         user={userState.user}
         handleFormSubmit={handleFormSubmit}
@@ -179,7 +185,6 @@ export default function ComposedTextField(props) {
         handleLogout={handleLogout}
       />
       </Grid>  
-
     </div>
   );
 }

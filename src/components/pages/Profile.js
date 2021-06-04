@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
+import Box from '@material-ui/core/Box';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+    backgroundColor: "#fdfcfa"
   },
+  hero: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg')`,
+    height: "500px",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    padding: "10px",
+    fontSize: "4rem",
+    [theme.breakpoints.down("sm")]: {
+      height: 300,
+      fontSize: "3em"
+    }
+  }
 }));
 
 export default function Profile() {
@@ -47,36 +64,39 @@ export default function Profile() {
       console.log("no token provided");
     }
   }, []);
-  
-   const renderProfile = () => {
+
+  const renderProfile = () => {
     const token = localStorage.getItem("token");
     if (token) {
-        API.getUser(token)
+      API.getUser(token)
 
-          .then((res) => {
-            console.log(res.data);
-            console.log(res.data.first_name);
-            console.log(res.data.last_name);
-            console.log(res.data.email);
-            // userProfile = {
-            //     first_name:res.data.first_name,
-            //     last_name:res.data.last_name,
-            //     email:res.data.email
+        .then((res) => {
+          console.log(res.data);
+          console.log(res.data.first_name);
+          console.log(res.data.last_name);
+          console.log(res.data.email);
+          // userProfile = {
+          //     first_name:res.data.first_name,
+          //     last_name:res.data.last_name,
+          //     email:res.data.email
 
-            // }
-          }) 
-      return ; 
+          // }
+        })
+      return;
     }
-    
+
   };
 
   return (
     <div className={classes.root}>
       <NavBar />
+
+      <Box className={classes.hero}>
+        <Box>Profile</Box>
+      </Box>
+
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <img src={"http://placekitten.com/800/200"} alt="" />
-        </Grid>
+
 
         <Grid item xs={6}>
           <p>First Name: </p>
@@ -96,7 +116,7 @@ export default function Profile() {
       </Grid>
       <div>
         {renderProfile()}
-        </div>
+      </div>
     </div>
   );
 }

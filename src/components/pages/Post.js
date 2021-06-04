@@ -1,12 +1,9 @@
 import React from 'react'
 // import ReactDOM from 'react-dom'
 // // import './index.css'
-
 import PostImage from "../PostImage/PostImage";
-
-import {Image} from 'cloudinary-react';
-import {Cloudinary} from 'cloudinary-core';
-
+import { Image } from 'cloudinary-react';
+import { Cloudinary } from 'cloudinary-core';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,6 +18,10 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import NavBar from '../NavBar'
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         color: "#006a4e",
         fontSize: "5rem",
-    },
+    }
 }));
 
 export default function ComposedTextField() {
@@ -93,28 +94,28 @@ export default function ComposedTextField() {
             <ImageUpload></ImageUpload>
         </Grid> */}
             <NavBar />
-            <Box className={classes.hero}>
-                <Box>Post a Plant</Box>
-            </Box>
             <Grid container
                 spacing={3}
                 direction="column"
                 alignItems="center"
                 justify="center"
                 style={{ minHeight: '100vh' }}>
-                <Grid item xs={12}>
-                    <img src="./images/plant-baby-logo.png" alt="" />
-                </Grid>
-                <Grid item xs={12}>
+
+                <Box className={classes.hero}>
+                    <Box>Post a Plant</Box>
+                </Box>
+
+
+                <Grid >
                     <PostImage></PostImage>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="component-outlined">Plant Name</InputLabel>
                         <OutlinedInput id="component-outlined" value={plant} onChange={handleChange} label="Name" name="plant" />
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Pick all that apply</FormLabel>
                         <FormGroup>
@@ -137,7 +138,7 @@ export default function ComposedTextField() {
                         </FormGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Flowers</FormLabel>
                         <RadioGroup aria-label="flowers" name="flowers" value={flowers} onChange={handleValueChange}>
@@ -146,7 +147,7 @@ export default function ComposedTextField() {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Water</FormLabel>
                         <RadioGroup aria-label="water" name="water" value={water} onChange={handleValueChange}>
@@ -157,7 +158,7 @@ export default function ComposedTextField() {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Sunlight</FormLabel>
                         <RadioGroup aria-label="sunlight" name="sunlight" value={sunlight} onChange={handleValueChange}>
@@ -166,7 +167,7 @@ export default function ComposedTextField() {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Ferilizer</FormLabel>
                         <RadioGroup aria-label="ferilizer" name="fertilizer" value={fertilizer} onChange={handleValueChange}>
@@ -176,7 +177,7 @@ export default function ComposedTextField() {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Temperature</FormLabel>
                         <RadioGroup aria-label="temperature" name="temperature" value={temperature} onChange={handleValueChange}>
@@ -186,7 +187,7 @@ export default function ComposedTextField() {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid >
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="component-outlined">Added Instructions</InputLabel>
                         <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />

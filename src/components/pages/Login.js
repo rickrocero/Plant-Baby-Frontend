@@ -9,6 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
 import Profile from './Profile'
 import { useHistory } from "react-router-dom";
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   loginContainer: {
     paddingTop: theme.spacing(3)
-
-  },
+  }
 }));
 
 export default function Login() {
@@ -64,7 +66,7 @@ export default function Login() {
               first_name: res.data.first_name,
               last_name: res.data.last_name,
             },
-          }); console.log(userState)
+          });console.log(userState)
         })
         .catch((err) => {
           console.log("no logged in user");
@@ -78,61 +80,107 @@ export default function Login() {
     }
   }, []);
 
-const handleFormSubmit = e => {
-  e.preventDefault();
-  API.login(formState).then(res => {
-    console.log(res.data.user);
-    localStorage.setItem("token", res.data.token)
-    console.log('token: ', res.data.token)
-    setUserState({
-      ...userState,
-      token: res.data.token,
-      user: {
-        email: res.data.email,
-        first_name: res.data.first_name,
-        last_name: res.data.last_name,
-        id: res.data.id
-      }
-    })
-  }, handleOnClick()
-  ).catch(err => {
-    console.log("error occured")
-    console.log(err);
-    localStorage.removeItem("token");
+  const handleOnClick = () => {
+    history.push("/home");
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    API.login(formState)
+      .then((res) => {
+        console.log(res.data.user);
+        localStorage.setItem("token", res.data.token);
+        console.log("token: ", res.data.token);
+        setUserState({
+          ...userState,
+          token: res.data.token,
+          user: {
+            email: res.data.email,
+            first_name: res.data.first_name,
+            last_name: res.data.last_name,
+            id: res.data.id,
+          },
+        }); console.log(userState)
+      },handleOnClick())
+      .catch((err) => {
+        console.log("error occured");
+        console.log(err);
+        localStorage.removeItem("token");
+        setUserState({
+          token: "",
+          user: {}
+        })
+      })
+      setFormState({
+        email:"",
+        password:""
+      })
+    }
+
+  // const handleOnClick = () => {
+  //   history.push('/home');
+  // }
+
+  // const handleFormSubmit = e => {
+  //   e.preventDefault();
+  //   API.login(formState).then(res => {
+  //     console.log(res.data.user);
+  //     localStorage.setItem("token", res.data.token)
+  //     console.log('token: ', res.data.token)
+  //     setUserState({
+  //       ...userState,
+  //       token: res.data.token,
+  //       user: {
+  //         email: res.data.email,
+  //         first_name: res.data.first_name,
+  //         last_name: res.data.last_name,
+  //         id: res.data.id
+  //       }
+  //     })
+  //   }, handleOnClick()
+  //   ).catch(err => {
+  //     console.log("error occured")
+  //     console.log(err);
+  //     localStorage.removeItem("token");
+  //     setUserState({
+  //       token: "",
+  //       user: {}
+  //     })
+  //   })
+  //   setFormState({
+  //     email: "",
+  //     password: "",
+  //   });
+  // };
+
+  const handleLogout = () => {
     setUserState({
       token: "",
-      user: {}
-    })
-  })
-  setFormState({
-    email: "",
-    password: "",
-  });
-};
+      user: {},
+    });
+    localStorage.removeItem("token");
+  };
 
-const handleLogout = () => {
-  setUserState({
-    token: "",
-    user: {},
-  });
-  localStorage.removeItem("token");
-};
+  return (
+    <div className={classes.root}>
+      <NavBar handleLogout={handleLogout} />
 
-return (
-  <div className={classes.root}>
-    <NavBar handleLogout={handleLogout} />
-    <Box className={classes.hero}>
-      <Box>Login</Box>
-    </Box>
-    <Container maxWidth="lg" className={classes.loginContainer}>
-      <Grid container
+      <Grid container 
+        spacing={3}
+        paddingBottom= "10px"
         direction="column"
         alignItems="center"
         justify="center"
         style={{ minHeight: '100vh' }}>
-        <Grid item xs={12}>
+          
+      <Box className={classes.hero}>
+        <Box>Login</Box>
+      </Box>
+
+
+        {/* <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt="" />
-        </Grid>
+        </Grid> */}
         <LoginForm user={userState.user}
           handleFormSubmit={handleFormSubmit}
           formState={formState}
@@ -140,7 +188,8 @@ return (
           handleLogout={handleLogout}
         />
       </Grid>
-    </Container>
-  </div>
-);
 
+
+    </div>
+  );
+}

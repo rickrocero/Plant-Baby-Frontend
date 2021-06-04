@@ -3,11 +3,13 @@ import NavBar from "../NavBar";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ImageUpload from '../ImageUpload/ImageUpload'
-
 import PlantCard from "../PlantCard";
-
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
     }
   },  
   homeContainer: {
-    paddingTop: theme.spacing(3)
-  },
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3)
+  }
 }));
 
 export default function Home() {
