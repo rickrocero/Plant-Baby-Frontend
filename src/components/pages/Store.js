@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link';
 import CheckoutForm from '../CheckoutForm/index'
 import ForSalePlantCard from '../ForSalePlantCard/index'
 import API from '../../utils/Api'
+import ProfilePlantCard from '../ProfilePlantCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +53,8 @@ export default function ComposedTextField() {
   const [name, setName] = React.useState('Composed TextField');
   const classes = useStyles();
 
+  const [plantState, setPlantState] = useState([]);
+
   const handleChange = (event) => {
     setName(event.target.value);
   };
@@ -60,14 +63,15 @@ export default function ComposedTextField() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     console.log("token: ", token)
-    API.getAllPlants(token)
-      .then((res) => {
-        console.log(res)
-
-      }).catch((err) => {
-        console.log('error: ', err)
-      })
-  }, []);
+        API.getAllPlants(token)
+        .then((res) => {
+            console.log(res.data)
+            const plants = res.data
+            setPlantState(plants)
+            console.log(plantState)
+          
+        })
+}, []);
 
 
   return (
@@ -122,22 +126,14 @@ export default function ComposedTextField() {
           </Grid>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <ForSalePlantCard />
+        {plantState.map((plant) => (
+        <ProfilePlantCard
+          plantName={plant.type}
+          wikiDescription={plant.description}
+          originalImage={plant.image_file}
+          id={plant.id}
+        />
+      ))}
         </Grid>
 
 

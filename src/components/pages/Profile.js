@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/Api";
 import PlantCard from "../PlantCard/index";
-import ProfilePlantCard from "../ProfilePlantCard/index"
+import ProfilePlantCard from "../ProfilePlantCard/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,35 +43,27 @@ export default function Profile() {
     inventory: "",
   });
 
-  const [plantState, setPlantState] = useState({
-    type: "",
-    image_file: "",
-    price: "",
-    description: "",
-    quantity: "",
-    is_indoor: "",
-    for_sale: "",
-    inventory_id: "",
-  });
+  const [plantState, setPlantState] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log("token: ", token);
     if (token) {
-      API.getUser(token).then((res) => {
-        console.log(res.data);
-        const profileData = res.data;
-        setUserState({
-          token: token,
-          user: {
-            email: profileData.email,
-            id: profileData.id,
-            first_name: profileData.first_name,
-            last_name: profileData.last_name,
-          },
-        });
-      })
-      
+      API.getUser(token)
+        .then((res) => {
+          console.log(res.data);
+          const profileData = res.data;
+          setUserState({
+            token: token,
+            user: {
+              email: profileData.email,
+              id: profileData.id,
+              first_name: profileData.first_name,
+              last_name: profileData.last_name,
+            },
+          });
+        })
+
         .catch((err) => {
           console.log("no user token");
           // setUserState({
@@ -89,33 +81,20 @@ export default function Profile() {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const id = userState.user.id;
-      console.log(userState.user.id);
-      API.getInventory(id, token)
-        .then((response) => {
-          console.log(response);
-          setInventoryState({
-            inventory: response.data.inventory.id,
-          });
-        })
-    const inventId = inventoryState.inventory;
-    console.log(inventoryState);
-    API.getPlantInventory(inventId, token).then((results) => {
-      const plants = results.data.plants;
-      console.log(plants);
-      for (let i = 0; i < plants.length; i++) {
-        const plantData = plants[i];
-        console.log(plantData);
-        setPlantState({
-          type: plantData.type,
-          image_file: plantData.image_file,
-          price: "",
-          description: plantData.description,
-          quantity: "",
-          is_indoor: "",
-          for_sale: "",
-          inventory_id: inventoryState.inventory,
-        });
-      }
+    console.log(userState.user.id);
+    API.getInventory(id, token).then((response) => {
+      console.log(response);
+      // setInventoryState({
+      //   inventory: response.data.inventory.id,
+      // });
+      const inventId = response.data.inventory.id;
+      console.log(inventoryState);
+      API.getPlantInventory(inventId, token).then((results) => {
+        const plants = results.data.plants;
+        console.log(plants);
+        setPlantState(plants);
+        console.log(plantState);
+      });
     });
   };
 
@@ -138,24 +117,20 @@ export default function Profile() {
         <Grid item xs={6}>
           <p>Last Name: {userState.user.last_name} </p>
         </Grid>
-        {/* <Grid item xs={12}>
-          <p>Username: </p>
-        </Grid> */}
         <Grid item xs={12}>
           <p>Email: {userState.user.email} </p>
         </Grid>
-        {/* <Grid item xs={12}>
-          <p>Password: </p>
-        </Grid> */}
       </Grid>
 
       <button onClick={plantInventory}>See your Plant Inventory</button>
-      <ProfilePlantCard
-        plantName={plantState.type}
-        wikiDescription={plantState.description}
-        originalImage={plantState.image_file}
-      />
-
+      {plantState.map((plant) => (
+        <ProfilePlantCard
+          plantName={plant.type}
+          wikiDescription={plant.description}
+          originalImage={plant.image_file}
+          id={plant.id}
+        />
+      ))}
     </div>
   );
 }
