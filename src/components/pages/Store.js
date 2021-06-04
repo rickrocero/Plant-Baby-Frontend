@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBar from "../NavBar";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import PlantCard from "../PlantCard";
 import CheckoutForm from '../CheckoutForm/index'
+import ForSalePlantCard from '../ForSalePlantCard/index'
+import API from '../../utils/Api'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,19 @@ export default function ComposedTextField() {
   };
 
 
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    console.log("token: ", token)
+        API.getAllPlants(token)
+        .then((res) => {
+            console.log(res)
+          
+        }).catch((err)=>{
+            console.log('error: ', err)
+        })
+}, []);
+
+
   return (
     <div>
         <NavBar />
@@ -85,25 +99,25 @@ export default function ComposedTextField() {
       </Button>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <PlantCard></PlantCard>
+          <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <PlantCard></PlantCard>
+        <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <PlantCard></PlantCard>
+        <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <PlantCard></PlantCard>
+        <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <PlantCard></PlantCard>
+        <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <PlantCard></PlantCard>
+        <ForSalePlantCard />
         </Grid>
       </Grid>
-      <CheckoutForm />
+      {/* <CheckoutForm /> */}
       </Container>
     </div>
   );

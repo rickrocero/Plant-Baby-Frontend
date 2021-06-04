@@ -3,6 +3,8 @@ import NavBar from "../NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/Api";
+import PlantCard from "../PlantCard/index";
+import ProfilePlantCard from "../ProfilePlantCard/index"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,52 +15,98 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Profile() {
-  // const [name, setName] = React.useState('Composed TextField');
   const classes = useStyles();
 
-  // const handleChange = (event) => {
-  //   setName(event.target.value);
-  // };
   const [userState, setUserState] = useState({
     token: "",
     user: {},
   });
 
-  //once authenticated pull the user data to populate the fields on the profile page
+  const [inventoryState, setInventoryState] = useState({
+    inventory: "",
+  });
+
+  const [plantState, setPlantState] = useState({
+    type: "",
+    image_file: "",
+    price: "",
+    description: "",
+    quantity: "",
+    is_indoor: "",
+    for_sale: "",
+    inventory_id: "",
+  });
+
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("token: ", token);
     if (token) {
-      API.getUser(token)
-        .then((res) => {
-          console.log(res.data);
-          setUserState({
-            token: token,
-            user: {
-              email: res.data.email,
-              id: res.data.id,
-              first_name: res.data.first_name,
-              last_name: res.data.last_name,
-            },
-          });
-        })
+      API.getUser(token).then((res) => {
+        console.log(res.data);
+        const profileData = res.data;
+        setUserState({
+          token: token,
+          user: {
+            email: profileData.email,
+            id: profileData.id,
+            first_name: profileData.first_name,
+            last_name: profileData.last_name,
+          },
+        });
+      })
+      
         .catch((err) => {
-          console.log("no logged in user");
-          setUserState({
-            token: "",
-            user: {},
-          });
+          console.log("no user token");
+          // setUserState({
+          //   token: "",
+          //   user: {},
+          // });
         });
     } else {
       console.log("no token provided");
     }
   }, []);
 
+  const plantInventory = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const id = userState.user.id;
+      console.log(userState.user.id);
+      API.getInventory(id, token)
+        .then((response) => {
+          console.log(response);
+          setInventoryState({
+            inventory: response.data.inventory.id,
+          });
+        })
+    const inventId = inventoryState.inventory;
+    console.log(inventoryState);
+    API.getPlantInventory(inventId, token).then((results) => {
+      const plants = results.data.plants;
+      console.log(plants);
+      for (let i = 0; i < plants.length; i++) {
+        const plantData = plants[i];
+        console.log(plantData);
+        setPlantState({
+          type: plantData.type,
+          image_file: plantData.image_file,
+          price: "",
+          description: plantData.description,
+          quantity: "",
+          is_indoor: "",
+          for_sale: "",
+          inventory_id: inventoryState.inventory,
+        });
+      }
+    });
+  };
+
   return (
     <div className={classes.root}>
       <NavBar />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <img src={"http://placekitten.com/800/200"} alt="" />
+          <img src={""} alt="" />
         </Grid>
 
         <Grid item xs={6}>
@@ -77,9 +125,12 @@ export default function Profile() {
           <p>Password: </p>
         </Grid> */}
       </Grid>
-      {/* <div>
-        {renderProfile()}
-        </div> */}
+      <button onClick={plantInventory}>See your Plant Inventory</button>
+      <ProfilePlantCard
+        plantName={plantState.type}
+        wikiDescription={plantState.description}
+        originalImage={plantState.image_file}
+      />
     </div>
   );
 }

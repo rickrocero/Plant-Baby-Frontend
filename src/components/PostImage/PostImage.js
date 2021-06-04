@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget'
 
-const PostImage = () => {
+const PostImage = (props) => {
+
+const [imageState, setImageState] = useState({
+  image_url: ""
+})
+console.log(imageState)
   return (
     <>
       <WidgetLoader />
@@ -19,7 +24,13 @@ const PostImage = () => {
               borderRadius: '4px',
               height: '25px',
         }}
-        onSuccess={(res) => console.log(res)}
+        onSuccess={props.successHandler
+          // (res) => 
+          // setImageState({
+          //   image_url: res.info.thumbnail_url
+          // })
+          
+        }
         onFailure={(res) => console.log(res)}
         logging={true}
         apiKey={'636996674271316'}
@@ -28,6 +39,7 @@ const PostImage = () => {
         withCredentials={true}
         unique_filename={true}
         resourceType={'image'}
+        imageState={imageState}
       />
     </>
   )}

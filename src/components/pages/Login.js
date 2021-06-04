@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import API from "../../utils/Api";
 import NavBar from "../NavBar";
 import Container from '@material-ui/core/Container';
@@ -7,7 +6,6 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
-import Profile from './Profile'
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({

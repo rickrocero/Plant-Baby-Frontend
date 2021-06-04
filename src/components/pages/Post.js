@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 // // import './index.css'
 import PostImage from "../PostImage/PostImage";
 import ImageUpload from "../ImageUpload/ImageUpload";
-import { Image } from 'cloudinary-react';
-import { Cloudinary } from 'cloudinary-core';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -20,8 +18,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import NavBar from '../NavBar'
-import PlantCard from '../PlantCard'
 import API from '../../utils/Api.js'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
@@ -41,7 +39,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "5rem",
     },
 }));
-export default function ComposedTextField() {
+export default function ComposedTextField(props) {
+    console.log(props)
+
+    const [imageState, setImageState] = useState({
+        image_url: ""
+      })
     const [name, setName] = React.useState({
         plant: "",
         description: "",
@@ -51,6 +54,13 @@ export default function ComposedTextField() {
     const handleChange = (event) => {
         setName({ ...name, [event.target.name]: event.target.value });
     };
+
+    const imageSuccess=(res)=>{
+            setImageState({
+              image_url: res.info.thumbnail_url
+            })
+    }
+
     const [value, setValue] = React.useState({
         flowers: "",
         water: "",
@@ -97,16 +107,18 @@ export default function ComposedTextField() {
                 console.log('error: ', err)
             })
         }
-    })
+    }, []);
 
     const buildCard = (event) => {
         event.preventDefault();
+        
         console.log("success")
         const token = localStorage.getItem('token')
         console.log('token: ', token)
         const inventId= inventoryState.inventory
         console.log(inventId)
           const plantData = {type: plant,
+            image_file: imageState.image_url,
             description: flowers,
             inventory_id: inventId
         }
@@ -114,21 +126,11 @@ export default function ComposedTextField() {
         API.createPlant(plantData, token)
         .then((res) => {
             console.log(res)
+            console.log(imageState)
         }).catch(err => {
             console.log(err)
         })
-        // return (
-        //     <PlantCard
-        //         tags={[
-        //             { pets },
-        //             { easycare },
-        //             { exotic },
-        //             { restricted },
-        //         ]}
-        //         plantName={plant}
-        //         wikiDescription={description}
-        //     />
-        // )
+       
     }
     const classes = useStyles();
     return (
@@ -153,7 +155,7 @@ export default function ComposedTextField() {
                     <h2 className="text-center">Or build your card from scratch</h2>
                 </Grid>
                 <Grid item xs={12}>
-                    <PostImage></PostImage>
+                    <PostImage successHandler={imageSuccess}/>
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl variant="outlined">
