@@ -57,17 +57,17 @@ export default function ComposedTextField() {
   };
 
 
-  useEffect(() =>{
+  useEffect(() => {
     const token = localStorage.getItem('token');
     console.log("token: ", token)
-        API.getAllPlants(token)
-        .then((res) => {
-            console.log(res)
-          
-        }).catch((err)=>{
-            console.log('error: ', err)
-        })
-}, []);
+    API.getAllPlants(token)
+      .then((res) => {
+        console.log(res)
+
+      }).catch((err) => {
+        console.log('error: ', err)
+      })
+  }, []);
 
 
   return (
@@ -85,23 +85,22 @@ export default function ComposedTextField() {
           <Grid item xs={12} sm={3}>
             <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
               Pet Friendly
-
-      </Button>
+          </Button>
           </Grid>
           <Grid item xs={12} sm={3}>
             <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
               Low Maintenance
-      </Button>
+            </Button>
           </Grid>
           <Grid item xs={12} sm={3}>
             <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
               Exotic
-      </Button>
+          </Button>
           </Grid>
           <Grid item xs={12} sm={3}>
             <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
               Restricted
-      </Button>
+            </Button>
           </Grid>
           <Grid item xs={12} sm={4}>
             <PlantCard></PlantCard>
@@ -122,29 +121,27 @@ export default function ComposedTextField() {
             <PlantCard></PlantCard>
           </Grid>
         </Grid>
-
         <Grid item xs={12} sm={4}>
           <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
+          <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
+          <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
+          <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
+          <ForSalePlantCard />
         </Grid>
         <Grid item xs={12} sm={4}>
-        <ForSalePlantCard />
+          <ForSalePlantCard />
         </Grid>
-      </Grid>
-      {/* <CheckoutForm /> */}
 
-      </Container>
-    </div>
+
+            </Container>
+    </div >
   );
 }
