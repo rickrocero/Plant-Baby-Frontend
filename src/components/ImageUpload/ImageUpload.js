@@ -34,13 +34,16 @@ export default class ImageUpload extends React.Component {
             plantImageURL:
               res.dataRes.suggestions[0].similar_images[0].url_small,
             wikiURL: res.dataRes.suggestions[0].plant_details.url,
+
           });
+
         })
         .catch((error) => {
           console.log("Error", error);
         });
     }
   }
+
 
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -62,6 +65,7 @@ export default class ImageUpload extends React.Component {
         });
     }
   }
+
 
   onClick = () => {
     const token = localStorage.getItem("token");
@@ -96,6 +100,7 @@ export default class ImageUpload extends React.Component {
           </p>
           <FileBase64 multiple={true} onDone={this.getFiles.bind(this)} />
         </div>
+
         <PlantCard
           originalImage={this.state.originalImage}
           plantName={this.state.plant_name}
@@ -103,6 +108,7 @@ export default class ImageUpload extends React.Component {
           wikiURL={this.state.wikiURL}
           onClick={this.onClick}
         />
+        
       </div>
     );
   }

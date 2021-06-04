@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import API from "../../utils/Api";
 import NavBar from "../NavBar";
 import Container from '@material-ui/core/Container';
@@ -7,6 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
 import { useHistory } from "react-router-dom";
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   loginContainer: {
     paddingTop: theme.spacing(3)
-
   },
 }));
 
@@ -80,6 +84,7 @@ export default function Login() {
     history.push("/home");
   };
 
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     API.login(formState)
@@ -129,13 +134,22 @@ export default function Login() {
       </Box>
       <Container maxWidth="lg" className={classes.loginContainer}>
       <Grid container
+
         direction="column"
         alignItems="center"
         justify="center"
         style={{ minHeight: '100vh' }}>
-        <Grid item xs={12}>
+
+          
+      <Box className={classes.hero}>
+        <Box>Login</Box>
+      </Box>
+
+
+        {/* <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt="" />
-        </Grid>
+        </Grid> */}
+
         <LoginForm user={userState.user}
           handleFormSubmit={handleFormSubmit}
           formState={formState}
@@ -143,7 +157,9 @@ export default function Login() {
           handleLogout={handleLogout}
         />
       </Grid>
+
       </Container>
+
     </div>
   );
 }
