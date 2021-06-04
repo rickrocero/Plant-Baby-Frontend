@@ -40,9 +40,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },  
   homeContainer: {
+
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3)
   }
+
 }));
 
 export default function Home() {
@@ -68,7 +70,9 @@ export default function Home() {
           <PlantCard></PlantCard>
         </Grid>
       </Grid>
+
       <ImageUpload />
+
             </Container>
     </div>
   );

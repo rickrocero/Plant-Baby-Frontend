@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import API from "../../utils/Api";
 import NavBar from "../NavBar";
@@ -7,7 +8,6 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoginForm from '../LoginForm/index'
-import Profile from './Profile'
 import { useHistory } from "react-router-dom";
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   loginContainer: {
     paddingTop: theme.spacing(3)
-  }
+  },
 }));
 
 export default function Login() {
@@ -84,6 +84,7 @@ export default function Login() {
     history.push("/home");
   };
 
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     API.login(formState)
@@ -117,42 +118,6 @@ export default function Login() {
       })
     }
 
-  // const handleOnClick = () => {
-  //   history.push('/home');
-  // }
-
-  // const handleFormSubmit = e => {
-  //   e.preventDefault();
-  //   API.login(formState).then(res => {
-  //     console.log(res.data.user);
-  //     localStorage.setItem("token", res.data.token)
-  //     console.log('token: ', res.data.token)
-  //     setUserState({
-  //       ...userState,
-  //       token: res.data.token,
-  //       user: {
-  //         email: res.data.email,
-  //         first_name: res.data.first_name,
-  //         last_name: res.data.last_name,
-  //         id: res.data.id
-  //       }
-  //     })
-  //   }, handleOnClick()
-  //   ).catch(err => {
-  //     console.log("error occured")
-  //     console.log(err);
-  //     localStorage.removeItem("token");
-  //     setUserState({
-  //       token: "",
-  //       user: {}
-  //     })
-  //   })
-  //   setFormState({
-  //     email: "",
-  //     password: "",
-  //   });
-  // };
-
   const handleLogout = () => {
     setUserState({
       token: "",
@@ -164,14 +129,17 @@ export default function Login() {
   return (
     <div className={classes.root}>
       <NavBar handleLogout={handleLogout} />
+      <Box className={classes.hero}>
+        <Box>Login</Box>
+      </Box>
+      <Container maxWidth="lg" className={classes.loginContainer}>
+      <Grid container
 
-      <Grid container 
-        spacing={3}
-        paddingBottom= "10px"
         direction="column"
         alignItems="center"
         justify="center"
         style={{ minHeight: '100vh' }}>
+
           
       <Box className={classes.hero}>
         <Box>Login</Box>
@@ -181,6 +149,7 @@ export default function Login() {
         {/* <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt="" />
         </Grid> */}
+
         <LoginForm user={userState.user}
           handleFormSubmit={handleFormSubmit}
           formState={formState}
@@ -189,6 +158,7 @@ export default function Login() {
         />
       </Grid>
 
+      </Container>
 
     </div>
   );

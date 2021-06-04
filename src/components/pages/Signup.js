@@ -6,8 +6,10 @@ import SignupForm from "../SignupForm/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { useHistory } from "react-router-dom";
+
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -162,7 +164,8 @@ export default function ComposedTextField(props) {
     <div className={classes.root}>
       <NavBar />  
 
-    <Grid container 
+      <Grid container 
+
         spacing={3}
         paddingBottom= "10px"
         direction="column"
@@ -170,10 +173,12 @@ export default function ComposedTextField(props) {
         justify="center"
         style={{ minHeight: '100vh' }}>
 
+
       <Box className={classes.hero}>
         <Box>Sign Up</Box>
       </Box>
       
+
       <SignupForm className={classes.form}
         user={userState.user}
         handleFormSubmit={handleFormSubmit}
@@ -185,6 +190,7 @@ export default function ComposedTextField(props) {
         handleLogout={handleLogout}
       />
       </Grid>  
+
     </div>
   );
 }

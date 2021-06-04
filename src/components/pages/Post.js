@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import ReactDOM from 'react-dom'
 // // import './index.css'
 import PostImage from "../PostImage/PostImage";
+
 import { Image } from 'cloudinary-react';
 import { Cloudinary } from 'cloudinary-core';
+
+import ImageUpload from "../ImageUpload/ImageUpload";
+
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -15,12 +19,17 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import NavBar from '../NavBar'
+
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
+
+
+import API from '../../utils/Api.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,21 +49,30 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         color: "#006a4e",
         fontSize: "5rem",
-    }
-}));
+    },
 
-export default function ComposedTextField() {
+}));
+export default function ComposedTextField(props) {
+    console.log(props)
+
+    const [imageState, setImageState] = useState({
+        image_url: ""
+      })
     const [name, setName] = React.useState({
         plant: "",
+        description: "",
         instruct: ""
     });
-
-    const { plant, instruct } = name;
-
+    const { plant, description, instruct } = name;
     const handleChange = (event) => {
         setName({ ...name, [event.target.name]: event.target.value });
     };
 
+    const imageSuccess=(res)=>{
+            setImageState({
+              image_url: res.info.thumbnail_url
+            })
+    }
 
     const [value, setValue] = React.useState({
         flowers: "",
@@ -63,37 +81,78 @@ export default function ComposedTextField() {
         fertilizer: "",
         temperature: ""
     });
-
     const { flowers, water, sunlight, fertilizer, temperature } = value;
-
     const handleValueChange = (event) => {
         setValue({ ...value, [event.target.name]: event.target.value });
     };
-
-
     const [checkState, setCheckState] = React.useState({
         pets: false,
         easycare: false,
         exotic: false,
         restricted: false,
     });
-
     const { pets, easycare, exotic, restricted } = checkState;
-
     const handleCheckChange = (event) => {
         setCheckState({ ...checkState, [event.target.name]: event.target.checked });
     };
 
+    const [inventoryState, setInventoryState] = useState({
+        inventory: ""
+    }
+    ); 
 
+    useEffect(() =>{
+        const token = localStorage.getItem('token');
+        if(token) {
+            API.getUser(token)
+            .then((res) => {
+                // console.log(res.data.id)
+                const id = res.data.id
+                API.getInventory(id, token)
+                .then((res) => {
+                    // console.log(res.data.inventory.id)
+                    setInventoryState({
+                        inventory: res.data.inventory.id
+                    })
+                    // console.log(inventoryState)
+                })
+            }).catch((err)=>{
+                console.log('error: ', err)
+            })
+        }
+    }, []);
+
+    const buildCard = (event) => {
+        event.preventDefault();
+        
+        console.log("success")
+        const token = localStorage.getItem('token')
+        console.log('token: ', token)
+        const inventId= inventoryState.inventory
+        console.log(inventId)
+          const plantData = {type: plant,
+            image_file: imageState.image_url,
+            description: flowers,
+            inventory_id: inventId
+        }
+        console.log(plantData);
+        API.createPlant(plantData, token)
+        .then((res) => {
+            console.log(res)
+            console.log(imageState)
+        }).catch(err => {
+            console.log(err)
+        })
+       
+    }
     const classes = useStyles();
-
-
     return (
         <div className={classes.root}>
-            {/* <Grid container spacing={3}>
-            <ImageUpload></ImageUpload>
-        </Grid> */}
             <NavBar />
+
+            <Box className={classes.hero}>
+                <Box>Post a Plant</Box>
+
             <Grid container
                 spacing={3}
                 direction="column"
@@ -101,13 +160,18 @@ export default function ComposedTextField() {
                 justify="center"
                 style={{ minHeight: '100vh' }}>
 
-                <Box className={classes.hero}>
-                    <Box>Post a Plant</Box>
-                </Box>
+                <Grid item xs={12}>
+                    <img src="./images/plant-baby-logo.png" alt="" />
+                </Grid>
+                <Grid item xs={12}>
+                    <ImageUpload />
+                </Grid>
+                <Grid item xs={12}>
+                    <h2 className="text-center">Or build your card from scratch</h2>
+                </Grid>
+                <Grid item xs={12}>
+                    <PostImage successHandler={imageSuccess}/>
 
-
-                <Grid >
-                    <PostImage></PostImage>
                 </Grid>
                 <Grid >
                     <FormControl variant="outlined">
@@ -115,7 +179,15 @@ export default function ComposedTextField() {
                         <OutlinedInput id="component-outlined" value={plant} onChange={handleChange} label="Name" name="plant" />
                     </FormControl>
                 </Grid>
-                <Grid >
+
+                <Grid item xs={12}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="component-outlined">Description</InputLabel>
+                        <OutlinedInput id="component-outlined" value={description} onChange={handleChange} label="Description" name="description" />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Pick all that apply</FormLabel>
                         <FormGroup>
@@ -192,6 +264,9 @@ export default function ComposedTextField() {
                         <InputLabel htmlFor="component-outlined">Added Instructions</InputLabel>
                         <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
                     </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={buildCard}>Add new listing</Button>
                 </Grid>
             </Grid>
         </div>

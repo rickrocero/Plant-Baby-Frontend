@@ -4,6 +4,8 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/Api";
+import PlantCard from "../PlantCard/index";
+import ProfilePlantCard from "../ProfilePlantCard/index"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,61 +32,91 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Profile() {
-  // const [name, setName] = React.useState('Composed TextField');
   const classes = useStyles();
 
-  // const handleChange = (event) => {
-  //   setName(event.target.value);
-  // };
   const [userState, setUserState] = useState({
     token: "",
     user: {},
   });
 
-  //once authenticated pull the user data to populate the fields on the profile page
+  const [inventoryState, setInventoryState] = useState({
+    inventory: "",
+  });
+
+  const [plantState, setPlantState] = useState({
+    type: "",
+    image_file: "",
+    price: "",
+    description: "",
+    quantity: "",
+    is_indoor: "",
+    for_sale: "",
+    inventory_id: "",
+  });
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // console.log(token)
+    console.log("token: ", token);
     if (token) {
-      API.getUser(token)
-        .then((res) => {
-          console.log(res.data);
-          console.log(res.data.first_name);
-          console.log(res.data.last_name);
-          console.log(res.data.email);
-        })
+      API.getUser(token).then((res) => {
+        console.log(res.data);
+        const profileData = res.data;
+        setUserState({
+          token: token,
+          user: {
+            email: profileData.email,
+            id: profileData.id,
+            first_name: profileData.first_name,
+            last_name: profileData.last_name,
+          },
+        });
+      })
+      
         .catch((err) => {
-          console.log("no logged in user");
-          setUserState({
-            token: "",
-            user: {},
-          });
+          console.log("no user token");
+          // setUserState({
+          //   token: "",
+          //   user: {},
+          // });
         });
     } else {
       console.log("no token provided");
     }
   }, []);
 
-  const renderProfile = () => {
+
+  const plantInventory = (e) => {
+    e.preventDefault();
     const token = localStorage.getItem("token");
-    if (token) {
-      API.getUser(token)
-
-        .then((res) => {
-          console.log(res.data);
-          console.log(res.data.first_name);
-          console.log(res.data.last_name);
-          console.log(res.data.email);
-          // userProfile = {
-          //     first_name:res.data.first_name,
-          //     last_name:res.data.last_name,
-          //     email:res.data.email
-
-          // }
+    const id = userState.user.id;
+      console.log(userState.user.id);
+      API.getInventory(id, token)
+        .then((response) => {
+          console.log(response);
+          setInventoryState({
+            inventory: response.data.inventory.id,
+          });
         })
-      return;
-    }
-
+    const inventId = inventoryState.inventory;
+    console.log(inventoryState);
+    API.getPlantInventory(inventId, token).then((results) => {
+      const plants = results.data.plants;
+      console.log(plants);
+      for (let i = 0; i < plants.length; i++) {
+        const plantData = plants[i];
+        console.log(plantData);
+        setPlantState({
+          type: plantData.type,
+          image_file: plantData.image_file,
+          price: "",
+          description: plantData.description,
+          quantity: "",
+          is_indoor: "",
+          for_sale: "",
+          inventory_id: inventoryState.inventory,
+        });
+      }
+    });
   };
 
   return (
@@ -98,25 +130,32 @@ export default function Profile() {
       <Grid container spacing={3}>
 
 
+
+
         <Grid item xs={6}>
-          <p>First Name: </p>
+          <p>First Name: {userState.user.first_name} </p>
         </Grid>
         <Grid item xs={6}>
-          <p>Last Name: </p>
+          <p>Last Name: {userState.user.last_name} </p>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <p>Username: </p>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
-          <p>Email: </p>
+          <p>Email: {userState.user.email} </p>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <p>Password: </p>
-        </Grid>
+        </Grid> */}
       </Grid>
-      <div>
-        {renderProfile()}
-      </div>
+
+      <button onClick={plantInventory}>See your Plant Inventory</button>
+      <ProfilePlantCard
+        plantName={plantState.type}
+        wikiDescription={plantState.description}
+        originalImage={plantState.image_file}
+      />
+
     </div>
   );
 }

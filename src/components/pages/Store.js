@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBar from "../NavBar";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -6,10 +6,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+
 import PlantCard from "../PlantCard";
 import Link from '@material-ui/core/Link';
-
-
+import CheckoutForm from '../CheckoutForm/index'
+import ForSalePlantCard from '../ForSalePlantCard/index'
+import API from '../../utils/Api'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3)
   }
+
 }));
 
 export default function ComposedTextField() {
@@ -54,7 +57,21 @@ export default function ComposedTextField() {
   };
 
 
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    console.log("token: ", token)
+        API.getAllPlants(token)
+        .then((res) => {
+            console.log(res)
+          
+        }).catch((err)=>{
+            console.log('error: ', err)
+        })
+}, []);
+
+
   return (
+
     <div className={classes.root}>
       <NavBar />
 
@@ -68,6 +85,7 @@ export default function ComposedTextField() {
           <Grid item xs={12} sm={3}>
             <Button variant="outlined" size="large" color="#d0f0c0" className={classes.margin}>
               Pet Friendly
+
       </Button>
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -104,6 +122,28 @@ export default function ComposedTextField() {
             <PlantCard></PlantCard>
           </Grid>
         </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <ForSalePlantCard />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+        <ForSalePlantCard />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+        <ForSalePlantCard />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+        <ForSalePlantCard />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+        <ForSalePlantCard />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+        <ForSalePlantCard />
+        </Grid>
+      </Grid>
+      {/* <CheckoutForm /> */}
+
       </Container>
     </div>
   );
