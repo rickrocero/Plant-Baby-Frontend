@@ -28,6 +28,7 @@ const API = {
         return axios.get(`${URL_PREFIX}/api/logout`)
     },
     createPlant: function(plantData, token){
+
         return axios.post(`${URL_PREFIX}/api/plant`, plantData,{
             headers: {
                 authorization: `Bearer ${token}`
@@ -62,6 +63,7 @@ const API = {
             }
         })
     },
+
 }
 
 export default API

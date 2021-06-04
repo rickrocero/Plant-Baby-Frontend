@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
+import Box from '@material-ui/core/Box';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/Api";
@@ -8,10 +9,26 @@ import ProfilePlantCard from "../ProfilePlantCard/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+    backgroundColor: "#fdfcfa"
   },
+  hero: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg')`,
+    height: "500px",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    padding: "10px",
+    fontSize: "4rem",
+    [theme.breakpoints.down("sm")]: {
+      height: 300,
+      fontSize: "3em"
+    }
+  }
 }));
 
 export default function Profile() {
@@ -59,6 +76,7 @@ export default function Profile() {
     }
   }, []);
 
+
   const plantInventory = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -83,10 +101,15 @@ export default function Profile() {
   return (
     <div className={classes.root}>
       <NavBar />
+
+      <Box className={classes.hero}>
+        <Box>Profile</Box>
+      </Box>
+
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <img src={""} alt="" />
-        </Grid>
+
+
+
 
         <Grid item xs={6}>
           <p>First Name: {userState.user.first_name} </p>
@@ -98,6 +121,7 @@ export default function Profile() {
           <p>Email: {userState.user.email} </p>
         </Grid>
       </Grid>
+
       <button onClick={plantInventory}>See your Plant Inventory</button>
       {plantState.map((plant) => (
         <ProfilePlantCard
