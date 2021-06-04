@@ -27,10 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   logo: {
+    position: 'absolute', 
     margin: 'auto',
+    left: '50%', 
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
     textAlign: 'center',
     maxWidth: '100%',
-    maxHeight: '70%',
+    maxHeight: '250%',
 },
 
   inputRoot: {
@@ -61,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
   },
   navbar: {
     backgroundColor: "#e1c0ad"
-  }
+  },
+  
 
 }));
 
