@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react'
 // import ReactDOM from 'react-dom'
 // // import './index.css'
 import PostImage from "../PostImage/PostImage";
-
 import { Image } from 'cloudinary-react';
 import { Cloudinary } from 'cloudinary-core';
-
 import ImageUpload from "../ImageUpload/ImageUpload";
-
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -23,7 +20,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import NavBar from '../NavBar'
-
+import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
@@ -50,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
         color: "#006a4e",
         fontSize: "5rem",
     },
+    postContainer: {
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spacing(3)
+    }
 
 }));
 export default function ComposedTextField(props) {
@@ -154,7 +155,7 @@ export default function ComposedTextField(props) {
             <Box className={classes.hero}>
                 <Box>Post a Plant</Box>
             </Box>
-
+        <Container className={classes.postContainer}>
                 <Grid container
                     spacing={3}
                     direction="column"
@@ -162,13 +163,14 @@ export default function ComposedTextField(props) {
                     justify="center"
                     style={{ minHeight: '100vh' }}>
 
-                    <Grid item xs={12}>
+                    <Grid >
                         <ImageUpload />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid >
+                
                         <h2 className="text-center">Or build your card from scratch</h2>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid >
                         <PostImage successHandler={imageSuccess} />
 
                     </Grid>
@@ -179,13 +181,13 @@ export default function ComposedTextField(props) {
                         </FormControl>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid >
                         <FormControl variant="outlined">
                             <InputLabel htmlFor="component-outlined">Description</InputLabel>
                             <OutlinedInput id="component-outlined" value={description} onChange={handleChange} label="Description" name="description" />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid >
 
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel component="legend">Pick all that apply</FormLabel>
@@ -264,10 +266,11 @@ export default function ComposedTextField(props) {
                             <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid >
                         <Button variant="contained" onClick={buildCard}>Add new listing</Button>
                     </Grid>
                 </Grid>
+            </Container>
         </div>
     );
 }
