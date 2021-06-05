@@ -14,8 +14,7 @@ import Footer from './components/Footer/index';
 function App() {
 
   return (
-    <div>
-      <Wrapper>
+      <div>
         <Router>
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
@@ -28,7 +27,6 @@ function App() {
           <Route exact path="/post" component={Post} />
         </Router>
         <Footer />
-      </Wrapper>
     </div>
   );
 

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#006a4e"
     },
     creators: {
-        padding: "75px",
+        padding: "0 16px",
         color: "#006a4e",
     }
 }));
