@@ -129,9 +129,7 @@ export default function Login() {
   return (
     <div className={classes.root}>
       <NavBar handleLogout={handleLogout} />
-      <Box className={classes.hero}>
-        <Box>Login</Box>
-      </Box>
+
       <Container maxWidth="lg" className={classes.loginContainer}>
       <Grid container
 
