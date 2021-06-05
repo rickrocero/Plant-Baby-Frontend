@@ -123,14 +123,18 @@ export default function Profile() {
       </Grid>
 
       <button onClick={plantInventory}>See your Plant Inventory</button>
-      {plantState.map((plant) => (
-        <ProfilePlantCard
-          plantName={plant.type}
-          wikiDescription={plant.description}
-          originalImage={plant.image_file}
-          id={plant.id}
-        />
-      ))}
+      <Box display="flex">
+      
+        {plantState.map((plant) => (
+          <ProfilePlantCard
+            plantName={plant.type}
+            wikiDescription={plant.description}
+            originalImage={plant.image_file}
+            id={plant.id}
+          />
+        ))}
+
+      </Box>
     </div>
   );
 }
