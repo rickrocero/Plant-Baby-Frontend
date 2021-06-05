@@ -131,20 +131,20 @@ export default function Profile() {
           <p>Email: {userState.user.email} </p>
         </Grid>
       </Grid>
-    <div>
+    
       <button onClick={plantInventory}>See your Plant Inventory</button>
-    </div>
+      <Box display="flex">
       
-      {plantState.map((plant) => (
-        <ProfilePlantCard
-          plantName={plant.type}
-          wikiDescription={plant.description}
-          originalImage={plant.image_file}
-          id={plant.id}
-          handleOnClick={deletePlant}
-          handleOnEdit={editPlant}
-        />
-      ))}
+        {plantState.map((plant) => (
+          <ProfilePlantCard
+            plantName={plant.type}
+            wikiDescription={plant.description}
+            originalImage={plant.image_file}
+            id={plant.id}
+          />
+        ))}
+
+      </Box>
     </div>
   );
 }
