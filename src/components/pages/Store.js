@@ -106,24 +106,6 @@ export default function ComposedTextField() {
               Restricted
             </Button>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PlantCard></PlantCard>
-          </Grid>
         </Grid>
         <Grid item xs={12} sm={4}>
         {plantState.map((plant) => (

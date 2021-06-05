@@ -46,19 +46,19 @@ export default function Footer() {
             Created with ❤ By:
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            <Link href="https://github.com/moecory11" color="primary" className={classes.creators}>
+            <Link href="https://github.com/moecory11" target="_blank" color="primary" className={classes.creators}>
                 Cory Moe
             </Link>
-            <Link href="https://github.com/rickrocero" color="primary" className={classes.creators}>
+            <Link href="https://github.com/rickrocero" target="_blank" color="primary" className={classes.creators}>
                 Rick Rocero
             </Link>
-            <Link href="https://github.com/AmandaNguyenn" color="primary" className={classes.creators}>
+            <Link href="https://github.com/AmandaNguyenn" target="_blank" color="primary" className={classes.creators}>
                 Amanda Nguyen
             </Link>
-            <Link href="https://github.com/KKH-pixel" color="primary" className={classes.creators} >
+            <Link href="https://github.com/KKH-pixel" target="_blank" color="primary" className={classes.creators} >
                 Kat Hunt
             </Link>
-            <Link href="https://github.com/lbalbrecht" color="primary" className={classes.creators}>
+            <Link href="https://github.com/lbalbrecht" target="_blank" color="primary" className={classes.creators}>
                 Leighton Albrecht
             </Link>
         </Typography>

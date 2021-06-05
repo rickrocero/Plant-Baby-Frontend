@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 // import {Link} from "react-router-dom";
 // import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import API from '../../utils/Api'
 
 const useStyles = makeStyles({
   root: {
@@ -29,7 +30,7 @@ export default function MediaCard(props) {
         <CardMedia
           className={classes.media}
           image={props.originalImage}
-          title="Contemplative Reptile"
+          title={props.plantName}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -44,8 +45,11 @@ export default function MediaCard(props) {
         <Button size="small" color="#00b786" href={props.wikiURL} target='_blank' >
           View Plant Wiki
         </Button>
-        <Button size="small" color="#00b786">
+        <Button onClick={props.handleOnEdit} size="small" color="#00b786">
           Add to Store For Sale
+        </Button>
+        <Button onClick={props.handleOnClick}size="small" color="#00b786">
+          Sold Plant
         </Button>
       </CardActions>
     </Card>

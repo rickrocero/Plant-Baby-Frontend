@@ -6,14 +6,9 @@ import ImageUpload from '../ImageUpload/ImageUpload'
 import PlantCard from "../PlantCard";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-<<<<<<< HEAD
 import API from '../../utils/Api'
-=======
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-
-
->>>>>>> develop
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,9 +87,6 @@ const [ plantState, setPlantState ] = useState(
       ))}
         </Grid>
       </Grid>
-
-      <ImageUpload />
-
             </Container>
     </div>
   );

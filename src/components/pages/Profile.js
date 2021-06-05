@@ -62,14 +62,8 @@ export default function Profile() {
               last_name: profileData.last_name,
             },
           });
-        })
-
-        .catch((err) => {
+        }).catch((err) => {
           console.log("no user token");
-          // setUserState({
-          //   token: "",
-          //   user: {},
-          // });
         });
     } else {
       console.log("no token provided");
@@ -83,52 +77,72 @@ export default function Profile() {
     const id = userState.user.id;
     console.log(userState.user.id);
     API.getInventory(id, token).then((response) => {
-      console.log(response);
-      // setInventoryState({
-      //   inventory: response.data.inventory.id,
-      // });
+      console.log(response.data);
+      setInventoryState({
+        inventory: response.data.inventory.id,
+      });
       const inventId = response.data.inventory.id;
       console.log(inventoryState);
       API.getPlantInventory(inventId, token).then((results) => {
         const plants = results.data.plants;
         console.log(plants);
+        console.log(inventoryState)
         setPlantState(plants);
         console.log(plantState);
       });
     });
   };
 
+  const deletePlant =()=>{
+    const token = localStorage.getItem("token")
+    const id = plantState.id;
+    console.log("token: ",token)
+    API.deletePlant(id, token)
+    .then((res)=>{
+      console.log(res)
+    })
+  }
+
+  const editPlant=()=>{
+    const token = localStorage.getItem("token")
+    console.log(token)
+    const id = plantState.id;
+    console.log(id)
+    // API.editPlant(id, token)
+    // .then((res)=>{
+    //   console.log(res)
+    // })
+  }
+
   return (
     <div className={classes.root}>
       <NavBar />
-
       <Box className={classes.hero}>
         <Box>Profile</Box>
       </Box>
-
       <Grid container spacing={3}>
-
-
-
-
         <Grid item xs={6}>
           <p>First Name: {userState.user.first_name} </p>
         </Grid>
         <Grid item xs={6}>
           <p>Last Name: {userState.user.last_name} </p>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <p>Email: {userState.user.email} </p>
         </Grid>
       </Grid>
-
+    <div>
       <button onClick={plantInventory}>See your Plant Inventory</button>
+    </div>
+      
       {plantState.map((plant) => (
         <ProfilePlantCard
           plantName={plant.type}
           wikiDescription={plant.description}
           originalImage={plant.image_file}
           id={plant.id}
+          handleOnClick={deletePlant}
+          handleOnEdit={editPlant}
         />
       ))}
     </div>

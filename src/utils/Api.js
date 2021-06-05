@@ -63,6 +63,20 @@ const API = {
             }
         })
     },
+    deletePlant: function(id, token){
+        return axios.delete(`${URL_PREFIX}/api/plant/${id}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+    },
+    editPlant: function(id, token){
+        return axios.put(`${URL_PREFIX}/api/plant/${id}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+    },
 
 }
 
