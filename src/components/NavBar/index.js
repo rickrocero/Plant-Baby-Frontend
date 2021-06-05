@@ -142,7 +142,18 @@ export default function PrimarySearchAppBar() {
           Profile
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={handleLogout}>
+      <Link
+          to="/login"
+          className={
+            window.location.pathname === "/login"
+              ? "nav-link active"
+              : "nav-link"
+          }
+        >
+          Logout
+        </Link>
+        </MenuItem>
     </Menu>
   );
 
