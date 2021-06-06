@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import API from "../../utils/Api";
 import NavBar from "../NavBar";
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import LoginForm from '../LoginForm/index'
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import LoginForm from "../LoginForm/index";
 import { useHistory } from "react-router-dom";
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "5rem",
   },
   loginContainer: {
-    paddingTop: theme.spacing(3)
+    paddingTop: theme.spacing(3),
   },
 }));
 
@@ -51,9 +46,9 @@ export default function Login() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token)
+    console.log(token);
     if (token) {
-      console.log('hello')
+      console.log("hello");
       API.getUser(token)
         .then((res) => {
           console.log(res.data);
@@ -66,7 +61,8 @@ export default function Login() {
               first_name: res.data.first_name,
               last_name: res.data.last_name,
             },
-          });console.log(userState)
+          });
+          console.log(userState);
         })
         .catch((err) => {
           console.log("no logged in user");
@@ -84,7 +80,6 @@ export default function Login() {
     history.push("/home");
   };
 
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     API.login(formState)
@@ -101,22 +96,23 @@ export default function Login() {
             last_name: res.data.last_name,
             id: res.data.id,
           },
-        }); console.log(userState)
-      },handleOnClick())
+        });
+        console.log(userState);
+      }, handleOnClick())
       .catch((err) => {
         console.log("error occured");
         console.log(err);
         localStorage.removeItem("token");
         setUserState({
           token: "",
-          user: {}
-        })
-      })
-      setFormState({
-        email:"",
-        password:""
-      })
-    }
+          user: {},
+        });
+      });
+    setFormState({
+      email: "",
+      password: "",
+    });
+  };
 
   const handleLogout = () => {
     setUserState({
@@ -131,33 +127,30 @@ export default function Login() {
       <NavBar handleLogout={handleLogout} />
 
       <Container maxWidth="lg" className={classes.loginContainer}>
-      <Grid container
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "100vh" }}
+        >
+          <Box className={classes.hero}>
+            <Box>Login</Box>
+          </Box>
 
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: '100vh' }}>
-
-          
-      <Box className={classes.hero}>
-        <Box>Login</Box>
-      </Box>
-
-
-        {/* <Grid item xs={12}>
+          {/* <Grid item xs={12}>
           <img src="./images/plant-baby-logo.png" alt="" />
         </Grid> */}
 
-        <LoginForm user={userState.user}
-          handleFormSubmit={handleFormSubmit}
-          formState={formState}
-          setFormState={setFormState}
-          handleLogout={handleLogout}
-        />
-      </Grid>
-
+          <LoginForm
+            user={userState.user}
+            handleFormSubmit={handleFormSubmit}
+            formState={formState}
+            setFormState={setFormState}
+            handleLogout={handleLogout}
+          />
+        </Grid>
       </Container>
-
     </div>
   );
 }
