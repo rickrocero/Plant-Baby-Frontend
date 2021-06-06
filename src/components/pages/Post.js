@@ -1,202 +1,200 @@
-import React, { useEffect, useState } from 'react'
-// import ReactDOM from 'react-dom'
-// // import './index.css'
+import React, { useEffect, useState } from "react";
 import PostImage from "../PostImage/PostImage";
-import { Image } from 'cloudinary-react';
-import { Cloudinary } from 'cloudinary-core';
 import ImageUpload from "../ImageUpload/ImageUpload";
-import { makeStyles } from '@material-ui/core/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Checkbox from '@material-ui/core/Checkbox';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import NavBar from '../NavBar'
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-
-
-
-import API from '../../utils/Api.js'
-
+import { makeStyles } from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import NavBar from "../NavBar";
+import Container from "@material-ui/core/Container";
+import API from "../../utils/Api.js";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        position: "relative",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    hero: {
-        position: "relative",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#006a4e",
-        fontSize: "5rem",
-    },
-    postContainer: {
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3)
-    }
-
+  root: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://i.pinimg.com/originals/e1/e1/5c/e1e15c72f53c6065930b7cda96cff0a8.jpg')`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  hero: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#006a4e",
+    fontSize: "5rem",
+  },
+  postContainer: {
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
 }));
 export default function ComposedTextField(props) {
-    console.log(props)
+  console.log(props);
 
-    const [imageState, setImageState] = useState({
-        image_url: ""
-    })
-    const [name, setName] = React.useState({
-        plant: "",
-        description: "",
-        price: ""
+  const [imageState, setImageState] = useState({
+    image_url: "",
+  });
+  const [name, setName] = React.useState({
+    plant: "",
+    description: "",
+    price: "",
+  });
+  const { plant, description, price } = name;
+  const handleChange = (event) => {
+    setName({ ...name, [event.target.name]: event.target.value });
+  };
+
+  const imageSuccess = (res) => {
+    setImageState({
+      image_url: res.info.thumbnail_url,
     });
-    const { plant, description, price } = name;
-    const handleChange = (event) => {
-        setName({ ...name, [event.target.name]: event.target.value });
-    };
+  };
 
-    const imageSuccess = (res) => {
-        setImageState({
-            image_url: res.info.thumbnail_url
+  // const [value, setValue] = React.useState({
+  //     flowers: "",
+  //     water: "",
+  //     sunlight: "",
+  //     fertilizer: "",
+  //     temperature: ""
+  // });
+  // const { flowers, water, sunlight, fertilizer, temperature } = value;
+  // const handleValueChange = (event) => {
+  //     setValue({ ...value, [event.target.name]: event.target.value });
+  // };
+  // const [checkState, setCheckState] = React.useState({
+  //     pets: false,
+  //     easycare: false,
+  //     exotic: false,
+  //     restricted: false,
+  // });
+  // const { pets, easycare, exotic, restricted } = checkState;
+  // const handleCheckChange = (event) => {
+  //     setCheckState({ ...checkState, [event.target.name]: event.target.checked });
+  // };
+
+  const [inventoryState, setInventoryState] = useState({
+    inventory: "",
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      API.getUser(token)
+        .then((res) => {
+          // console.log(res.data.id)
+          const id = res.data.id;
+          API.getInventory(id, token).then((res) => {
+            // console.log(res.data.inventory.id)
+            setInventoryState({
+              inventory: res.data.inventory.id,
+            });
+            // console.log(inventoryState)
+          });
         })
+        .catch((err) => {
+          console.log("error: ", err);
+        });
     }
+  }, []);
 
-    // const [value, setValue] = React.useState({
-    //     flowers: "",
-    //     water: "",
-    //     sunlight: "",
-    //     fertilizer: "",
-    //     temperature: ""
-    // });
-    // const { flowers, water, sunlight, fertilizer, temperature } = value;
-    // const handleValueChange = (event) => {
-    //     setValue({ ...value, [event.target.name]: event.target.value });
-    // };
-    // const [checkState, setCheckState] = React.useState({
-    //     pets: false,
-    //     easycare: false,
-    //     exotic: false,
-    //     restricted: false,
-    // });
-    // const { pets, easycare, exotic, restricted } = checkState;
-    // const handleCheckChange = (event) => {
-    //     setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-    // };
+  const buildCard = (event) => {
+    event.preventDefault();
 
-    const [inventoryState, setInventoryState] = useState({
-        inventory: ""
-    }
-    );
+    console.log("success");
+    const token = localStorage.getItem("token");
+    console.log("token: ", token);
+    const inventId = inventoryState.inventory;
+    console.log(inventId);
+    const plantData = {
+      type: plant,
+      image_file: imageState.image_url,
+      price: price,
+      description: description,
+      inventory_id: inventId,
+    };
+    console.log(plantData);
+    API.createPlant(plantData, token)
+      .then((res) => {
+        console.log(res);
+        console.log(imageState);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <NavBar />
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            API.getUser(token)
-                .then((res) => {
-                    // console.log(res.data.id)
-                    const id = res.data.id
-                    API.getInventory(id, token)
-                        .then((res) => {
-                            // console.log(res.data.inventory.id)
-                            setInventoryState({
-                                inventory: res.data.inventory.id
-                            })
-                            // console.log(inventoryState)
-                        })
-                }).catch((err) => {
-                    console.log('error: ', err)
-                })
-        }
-    }, []);
+      <Box className={classes.hero}>
+        <Box>Post a Plant</Box>
+      </Box>
+      <Container className={classes.postContainer}>
+        <Grid
+          container
+          spacing={3}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "100vh" }}
+        >
+          <Grid>
+            <ImageUpload />
+          </Grid>
+          <Grid>
+            <h2 className="text-center">Or build your card from scratch</h2>
+          </Grid>
+          <Grid>
+            <PostImage successHandler={imageSuccess} />
+          </Grid>
+          <Grid>
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="component-outlined">Plant Name</InputLabel>
+              <OutlinedInput
+                id="component-outlined"
+                value={plant}
+                onChange={handleChange}
+                label="Name"
+                name="plant"
+              />
+            </FormControl>
+          </Grid>
 
-    const buildCard = (event) => {
-        event.preventDefault();
+          <Grid>
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="component-outlined">Price</InputLabel>
+              <OutlinedInput
+                id="component-outlined"
+                value={price}
+                onChange={handleChange}
+                label="price"
+                name="price"
+              />
+            </FormControl>
+          </Grid>
 
-        console.log("success")
-        const token = localStorage.getItem('token')
-        console.log('token: ', token)
-        const inventId = inventoryState.inventory
-        console.log(inventId)
-        const plantData = {
-            type: plant,
-            image_file: imageState.image_url,
-            price: price,
-            description: description,
-            inventory_id: inventId
-        }
-        console.log(plantData);
-        API.createPlant(plantData, token)
-            .then((res) => {
-                console.log(res)
-                console.log(imageState)
-            }).catch(err => {
-                console.log(err)
-            })
+          <Grid>
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="component-outlined">Description</InputLabel>
+              <OutlinedInput
+                id="component-outlined"
+                value={description}
+                onChange={handleChange}
+                label="Description"
+                name="description"
+              />
+            </FormControl>
+          </Grid>
 
-    }
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            <NavBar />
-
-            <Box className={classes.hero}>
-                <Box>Post a Plant</Box>
-            </Box>
-        <Container className={classes.postContainer}>
-                <Grid container
-                    spacing={3}
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                    style={{ minHeight: '100vh' }}>
-
-                    <Grid >
-                        <ImageUpload />
-                    </Grid>
-                    <Grid >
-                
-                        <h2 className="text-center">Or build your card from scratch</h2>
-                    </Grid>
-                    <Grid >
-                        <PostImage successHandler={imageSuccess} />
-
-                    </Grid>
-                    <Grid >
-                        <FormControl variant="outlined">
-                            <InputLabel htmlFor="component-outlined">Plant Name</InputLabel>
-                            <OutlinedInput id="component-outlined" value={plant} onChange={handleChange} label="Name" name="plant" />
-                        </FormControl>
-                    </Grid>
-
-                    <Grid >
-                        <FormControl variant="outlined">
-                            <InputLabel htmlFor="component-outlined">Price</InputLabel>
-                            <OutlinedInput id="component-outlined" value={price} onChange={handleChange} label="price" name="price" />
-                        </FormControl>
-                    </Grid>
-
-                    <Grid >
-                        <FormControl variant="outlined">
-                            <InputLabel htmlFor="component-outlined">Description</InputLabel>
-                            <OutlinedInput id="component-outlined" value={description} onChange={handleChange} label="Description" name="description" />
-                        </FormControl>
-                    </Grid>
-
-                    {/* <Grid >
+          {/* <Grid >
 
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel component="legend">Pick all that apply</FormLabel>
@@ -275,11 +273,13 @@ export default function ComposedTextField(props) {
                             <OutlinedInput id="component-outlined" value={instruct} onChange={handleChange} label="Instructions" name="instruct" />
                         </FormControl>
                     </Grid> */}
-                    <Grid >
-                        <Button variant="contained" onClick={buildCard}>Add To Inventory</Button>
-                    </Grid>
-                </Grid>
-            </Container>
-        </div>
-    );
+          <Grid>
+            <Button variant="contained" onClick={buildCard}>
+              Add To Inventory
+            </Button>
+          </Grid>
+        </Grid>
+      </Container>
+    </div>
+  );
 }

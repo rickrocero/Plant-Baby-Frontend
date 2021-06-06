@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import API from "../../utils/Api";
 import NavBar from "../NavBar";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import SignupForm from "../SignupForm/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { useHistory } from "react-router-dom";
-
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function ComposedTextField(props) {
   const history = useHistory();
   const classes = useStyles();
@@ -40,7 +34,6 @@ export default function ComposedTextField(props) {
     email: "",
     password: "",
   });
-
 
   const [signupFormState, setSignupFormState] = useState({
     first_name: "",
@@ -64,7 +57,7 @@ export default function ComposedTextField(props) {
       API.getUser(token)
         .then((res) => {
           console.log(res.data);
-          console.log('token: ', token)
+          console.log("token: ", token);
           setUserState({
             token: token,
             user: {
@@ -93,7 +86,7 @@ export default function ComposedTextField(props) {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
-        console.log('token: ', res.data.token)
+        console.log("token: ", res.data.token);
         setUserState({
           ...userState,
           token: res.data.token,
@@ -162,35 +155,33 @@ export default function ComposedTextField(props) {
 
   return (
     <div className={classes.root}>
-      <NavBar />  
+      <NavBar />
 
-      <Grid container 
-
+      <Grid
+        container
         spacing={3}
-        paddingBottom= "10px"
+        paddingBottom="10px"
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: '100vh' }}>
+        style={{ minHeight: "100vh" }}
+      >
+        <Box className={classes.hero}>
+          <Box>Sign Up</Box>
+        </Box>
 
-
-      <Box className={classes.hero}>
-        <Box>Sign Up</Box>
-      </Box>
-      
-
-      <SignupForm className={classes.form}
-        user={userState.user}
-        handleFormSubmit={handleFormSubmit}
-        formState={formState}
-        setFormState={setFormState}
-        signupFormState={signupFormState}
-        setSignupFormState={setSignupFormState}
-        handleSignupFormSubmit={handleSignupFormSubmit}
-        handleLogout={handleLogout}
-      />
-      </Grid>  
-
+        <SignupForm
+          className={classes.form}
+          user={userState.user}
+          handleFormSubmit={handleFormSubmit}
+          formState={formState}
+          setFormState={setFormState}
+          signupFormState={signupFormState}
+          setSignupFormState={setSignupFormState}
+          handleSignupFormSubmit={handleSignupFormSubmit}
+          handleLogout={handleLogout}
+        />
+      </Grid>
     </div>
   );
 }

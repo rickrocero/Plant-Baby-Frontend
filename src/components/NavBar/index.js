@@ -69,8 +69,6 @@ const useStyles = makeStyles((theme) => ({
   sidemenu: {
     maxWidth: "100px"
   }
-  
-
 }));
 
 export default function PrimarySearchAppBar() {

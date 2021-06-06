@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 // import {Link} from "react-router-dom";
 import "./style.css";
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-
+    margin: '10px'
   },
   media: {
     height: 140,
@@ -41,13 +41,7 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="#00b786" href={props.wikiURL} target='_blank' >
-          View Plant Wiki
-        </Button>
-        <Button size="small" color="#00b786">
-          Add to Cart
-        </Button>
-        <Button onClick={props.onClick} >Add to Inventory</Button>
+        <Button onClick={props.onClick}>Buy Plant</Button>
       </CardActions>
     </Card>
   );

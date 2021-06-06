@@ -34,16 +34,13 @@ export default class ImageUpload extends React.Component {
             plantImageURL:
               res.dataRes.suggestions[0].similar_images[0].url_small,
             wikiURL: res.dataRes.suggestions[0].plant_details.url,
-
           });
-
         })
         .catch((error) => {
           console.log("Error", error);
         });
     }
   }
-
 
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -66,7 +63,6 @@ export default class ImageUpload extends React.Component {
     }
   }
 
-
   onClick = () => {
     const token = localStorage.getItem("token");
     const inventId = this.state.inventory;
@@ -74,14 +70,11 @@ export default class ImageUpload extends React.Component {
       image_file: this.state.originalImage,
       description: this.state.wikiDescription,
       type: this.state.plantName,
-      inventory_id: inventId
+      inventory_id: inventId,
     };
-
-    
     console.log(inventId);
     console.log(this.state);
     console.log(token);
-
     API.createPlant(plantData, token)
       .then((res) => {
         console.log(res);
@@ -108,7 +101,6 @@ export default class ImageUpload extends React.Component {
           wikiURL={this.state.wikiURL}
           onClick={this.onClick}
         />
-        
       </div>
     );
   }

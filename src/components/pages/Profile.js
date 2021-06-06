@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/Api";
-import PlantCard from "../PlantCard/index";
 import ProfilePlantCard from "../ProfilePlantCard/index";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#fdfcfa"
+    backgroundColor: "#fdfcfa",
   },
   hero: {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.technogym.com/wpress/wp-content/uploads/2019/04/indoor-plants-header.jpg')`,
@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4rem",
     [theme.breakpoints.down("sm")]: {
       height: 300,
-      fontSize: "3em"
-    }
-  }
+      fontSize: "3em",
+    },
+  },
 }));
 
 export default function Profile() {
@@ -62,14 +62,14 @@ export default function Profile() {
               last_name: profileData.last_name,
             },
           });
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log("no user token");
         });
     } else {
       console.log("no token provided");
     }
   }, []);
-
 
   const plantInventory = (e) => {
     e.preventDefault();
@@ -86,33 +86,25 @@ export default function Profile() {
       API.getPlantInventory(inventId, token).then((results) => {
         const plants = results.data.plants;
         console.log(plants);
-        console.log(inventoryState)
+        console.log(inventoryState);
         setPlantState(plants);
         console.log(plantState);
       });
     });
   };
 
-  const deletePlant =()=>{
-    const token = localStorage.getItem("token")
-    const id = plantState.id;
-    console.log("token: ",token)
-    API.deletePlant(id, token)
-    .then((res)=>{
-      console.log(res)
-    })
-  }
-
-  const editPlant=()=>{
-    const token = localStorage.getItem("token")
-    console.log(token)
-    const id = plantState.id;
-    console.log(id)
-    // API.editPlant(id, token)
+  const deletePlant = () => {
+    const token = localStorage.getItem("token");
+    console.log("token: ", token);
+    for (let i = 0; i < plantState.length; i++) {
+      const plantData = plantState[i];
+      console.log(plantData)
+    }
+    // API.deletePlant(id, token)
     // .then((res)=>{
     //   console.log(res)
     // })
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -122,28 +114,27 @@ export default function Profile() {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={6}>
+          <h3>Your Contact Info:</h3>
           <p>First Name: {userState.user.first_name} </p>
-        </Grid>
-        <Grid item xs={6}>
           <p>Last Name: {userState.user.last_name} </p>
-        </Grid>
-        <Grid item xs={6}>
           <p>Email: {userState.user.email} </p>
         </Grid>
       </Grid>
-    
-      <button onClick={plantInventory}>See your Plant Inventory</button>
-      <Box display="flex">
-      
-        {plantState.map((plant) => (
+      <Button variant="contained" onClick={plantInventory}>
+        See your Plant Inventory
+      </Button>
+      <Box  display="flex" flexWrap="wrap" margin='10px' >
+        {plantState.map((plant, index) => (
           <ProfilePlantCard
+          margin='10px' 
             plantName={plant.type}
             wikiDescription={plant.description}
             originalImage={plant.image_file}
             id={plant.id}
+            handleOnClick={deletePlant}
+            key={index}
           />
         ))}
-
       </Box>
     </div>
   );
