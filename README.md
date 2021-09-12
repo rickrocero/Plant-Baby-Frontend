@@ -60,7 +60,7 @@ APIs:
 ## Contributing
 This is the front end git repository. The back end is a separate git repository located at [Back End Repo](https://github.com/rickrocero/Plant-Baby-Backend). Fork both git repositories and contact the repository owner about pull requests. 
 
-## Licensce
+## License
 No license provided for this software.
 
 ## Questions
