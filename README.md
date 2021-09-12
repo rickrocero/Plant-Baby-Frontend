@@ -13,6 +13,9 @@
 A classified advertisement website devoted to indoor plants. If you're looking to browse check out the shop page and find your perfect plant. Post your plant up for sale in a few easy steps. To identify a plant, upload an image and let our app tell you in a matter of seconds.  
 
 ## Usage
+
+[Click this link to check out our deployed application!](https://plantbaby.herokuapp.com/)
+
 The landing page features a few of the most recently uploaded plants for sale. No sign-ups or logins required to start your plant search. 
 * ### Landing page
 ![landingPage](./public/images/landingPage.png)
