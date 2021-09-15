@@ -2,20 +2,21 @@
 
 ## Table of Contents
 1. [Description](#description)
-2. [Usage](#usage)
-3. [Technologies](#technologies)
-4. [Authors](#authors)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Questions](#questions)
+2. [Link](#link)
+3. [Usage](#usage)
+4. [Technologies](#technologies)
+5. [Authors](#authors)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Questions](#questions)
 
 ## Description
 A classified advertisement website devoted to indoor plants. If you're looking to browse check out the shop page and find your perfect plant. Post your plant up for sale in a few easy steps. To identify a plant, upload an image and let our app tell you in a matter of seconds.  
 
+## Link
+https://plantbaby.herokuapp.com/
+
 ## Usage
-
-[Click this link to check out our deployed application!](https://plantbaby.herokuapp.com/)
-
 The landing page features a few of the most recently uploaded plants for sale. No sign-ups or logins required to start your plant search. 
 * ### Landing page
 ![landingPage](./public/images/landingPage.png)
